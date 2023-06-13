@@ -13,7 +13,7 @@ class RegisterController
 
     function displaySuccess()
     {
-        require_once("views/templates/registerEnd.php");
+        require_once("views/templates/registerSuccess.php");
     }
 
     function getUserNames()
@@ -161,21 +161,6 @@ class RegisterController
             }
         }
 
-        //_____________________EMAIL CHECK________________________________
-        foreach ($listEmails as $email)
-        {
-
-            if ($email["email_joueur"] == $data["email"])
-            {
-                $_SESSION["msg"] .= "Email already in use";            //At this point it means that at least on field is incorrect
-                $permission0 = false;                           //The previous value in the array could be good so when we land 
-                break;                                          //on used emails we go out of loop and permission is still false
-            }
-            else
-            {
-                $permission0 = true;
-            }
-        }
         //_________________________Username Check________________________________
 
         foreach ($listUsername as $username)
@@ -216,8 +201,7 @@ class RegisterController
 
             $this->registerDB($data);
             $_SESSION["msg"] = "Register OK";
-            //header ("Location:index.php?action=registerOK");
-            echo $_SESSION["msg"];
+            header ("Location:index.php?action=registerOK");
         }
         else
         {

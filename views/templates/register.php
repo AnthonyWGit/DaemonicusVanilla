@@ -1,6 +1,6 @@
 <?php ob_start() ?>
 
-<form method="post" action="index.php?action=checkInfos" class="yyy" id="form-register" name="registration">
+<form method="post" action="index.php?action=checkInfosRegister" class="yyy" id="form-register" name="registration">
 
     <div class="formDiv">
         

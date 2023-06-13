@@ -10,11 +10,12 @@ spl_autoload_register(function ($class_name)
 use Controllers\HomepageController;
 use Controllers\LoginController;
 use Controllers\RegisterController;
+use Controllers\DisconnectController;
 
 $homepageController = new HomepageController();
-$logginController = new LoginController();
+$loginController = new LoginController();
 $registerController = new RegisterController();
-
+$dcController = new DisconnectController();
 
 if (isset($_GET['action'])) 
 {
@@ -26,17 +27,33 @@ if (isset($_GET['action']))
                 break;
             
             case 'displayLogin':
-                $logginController->displayLogin();
+                $loginController->displayLogin();
                 break;
             
             case 'displayRegister':
                 $registerController->displayPage();
                 break;
 
-            case 'checkInfos':
+            case 'checkInfosRegister':
                 $data = $_POST;
-                var_dump($data);
                 $registerController->checkPostData($data);
+                break;
+
+            case 'checkInfosLogin':
+                $data = $_POST;               
+                $loginController->checkPostData($data);
+                break;
+            
+            case "registerOK":
+                $registerController->displaySuccess();
+                break;  
+            
+            case "loginOK":
+                $loginController->displaySuccess();
+                break;  
+
+            case "disconnect":
+                $dcController->disconnect();
                 break;
         }
     
