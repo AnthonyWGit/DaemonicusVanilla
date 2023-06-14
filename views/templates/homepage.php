@@ -4,8 +4,9 @@
 
         <h3>A tale about mythologies, epic heroes, adventure, magic and glory</h3>
         <button class="insideBtn">Explore</button>
-        <button class="insideBtn"><a href="index.php?action=displayRegister">Join in</a></button>
-        <button class="insideBtn">Launch game</button>
+        <a href="index.php?action=displayRegister"><button class="insideBtn">Join in</button></a>
+        <a href="game.php?action=process"><button class="insideBtn">Launch game</button></a>
+
 
 <?php $content = ob_get_clean();?>
 
