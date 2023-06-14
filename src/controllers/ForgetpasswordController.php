@@ -20,6 +20,8 @@ class ForgetPasswordController
     {
         if (isset($_SESSION["newPwdInProcess"]) && ($_SESSION["newPwdInProcess"] == 1))
         require_once("views/templates/newPassword.php");
+        else
+        header("Location: index.php");
     }
 
     public function sendToken($dataForm)
