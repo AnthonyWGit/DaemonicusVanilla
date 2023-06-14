@@ -26,7 +26,6 @@ class LoginController
 
     function displaySuccess()
     {
-        var_dump($_SESSION);
         require_once("views/templates/loginEnd.php");
     }
 
