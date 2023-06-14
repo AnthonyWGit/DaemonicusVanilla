@@ -24,6 +24,8 @@ if (isset($_GET['action']))
     switch ($_GET['action'])
         {
 
+//_______DISPLAYS______________________
+
             case 'homepage':
                 $homepageController->displayHomepage();
                 break;
@@ -36,6 +38,21 @@ if (isset($_GET['action']))
                 $registerController->displayPage();
                 break;
 
+            case "registerOK":
+                $registerController->displaySuccess();
+                break;  
+            
+            case "loginOK":
+                $loginController->displaySuccess();
+                break;  
+            case "forgotPwd":
+                $forgotpwdController->displayPage();
+                break;                
+            case "changePasswordOK":
+                $forgotpwdController->displayPageChangePwd();
+                break;
+//_______CHECK & VERIFY________________
+
             case 'checkInfosRegister':
                 $data = $_POST;
                 $registerController->checkPostData($data);
@@ -45,21 +62,11 @@ if (isset($_GET['action']))
                 $data = $_POST;               
                 $loginController->checkPostData($data);
                 break;
-            
-            case "registerOK":
-                $registerController->displaySuccess();
-                break;  
-            
-            case "loginOK":
-                $loginController->displaySuccess();
-                break;  
 
             case "disconnect":
                 $dcController->disconnect();
                 break;
-            case "forgotPwd":
-                $forgotpwdController->displayPage();
-                break;
+
             case "checkInfosForgotPwd":
                 $data = $_POST;
                 $forgotpwdController->sendToken($data);
@@ -71,16 +78,17 @@ if (isset($_GET['action']))
                 $token = $_POST;
                 $forgotpwdController->checkRecoveryToken($token);
                 break;
-            case "changePasswordOK":
-                $forgotpwdController->displayPageChangePwd();
-                break;
             case "checkNewPwd":
                 $newPwd = $_POST["password"];
                 $newPwdConfirm = $_POST["password-confirm"];
                 $forgotpwdController->checkNewPwd($newPwd, $newPwdConfirm);
                 break;
         }
-    
+//__________________________GAME__________________________
+
+            // case 'game':
+            //     $homepageController->displayHomepage();
+            //     break;
 }
 
 else
