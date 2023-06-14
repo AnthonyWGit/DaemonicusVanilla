@@ -11,11 +11,13 @@ use Controllers\HomepageController;
 use Controllers\LoginController;
 use Controllers\RegisterController;
 use Controllers\DisconnectController;
+use Controllers\ForgetPasswordController;
 
 $homepageController = new HomepageController();
 $loginController = new LoginController();
 $registerController = new RegisterController();
 $dcController = new DisconnectController();
+$forgotpwdController = new ForgetPasswordController();
 
 if (isset($_GET['action'])) 
 {
@@ -54,6 +56,28 @@ if (isset($_GET['action']))
 
             case "disconnect":
                 $dcController->disconnect();
+                break;
+            case "forgotPwd":
+                $forgotpwdController->displayPage();
+                break;
+            case "checkInfosForgotPwd":
+                $data = $_POST;
+                $forgotpwdController->sendToken($data);
+                break;
+            case "recoveryOK":
+                $forgotpwdController->displayPageOK();
+                break;
+            case "verifyRecovery":
+                $token = $_POST;
+                $forgotpwdController->checkRecoveryToken($token);
+                break;
+            case "changePasswordOK":
+                $forgotpwdController->displayPageChangePwd();
+                break;
+            case "checkNewPwd":
+                $newPwd = $_POST["password"];
+                $newPwdConfirm = $_POST["password-confirm"];
+                $forgotpwdController->checkNewPwd($newPwd, $newPwdConfirm);
                 break;
         }
     
