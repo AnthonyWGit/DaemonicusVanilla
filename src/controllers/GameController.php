@@ -3,6 +3,8 @@
 namespace Controllers;
 use Models\Connect;
 use Models\UserDataRetrievalSession;
+use Models\GetFirstDemon;
+use Models\GameStageModel;
 
 class GameController
 {
@@ -28,9 +30,43 @@ class GameController
         {
             require_once("views/templates/gameNoDemon.php");
         }
+        else if ($arrayProg[0]["id_stade_jeu"] == 2 )
+        {
+            $daemons = $dataretrievaal->getPkmnPlayer();
+            require_once("views/templates/gameHub.php");
+        }
         else
         {
             echo"Loggin to play the game";
         }
+    }
+
+    public function getHera()
+    {
+        $setStage = new GameStageModel();
+        $newChoice = new GetFirstDemon();
+        $newChoice->getHeraModel();
+        $setStage->setProg(2);
+
+        require_once("views/templates/gameHub.php");
+
+    }
+    public function getAkuAku()
+    {
+        $setStage = new GameStageModel();
+        $newChoice = new GetFirstDemon();
+        $newChoice->getAkuakuModel();
+        $setStage->setProg(2);
+
+        require_once("views/templates/gameHub.php");
+    }
+    public function getMinotor()
+    {
+        $setStage = new GameStageModel();
+        $newChoice = new GetFirstDemon();
+        $newChoice->getMinotorModel();
+        $setStage->setProg(2);
+
+        require_once("views/templates/gameHub.php");
     }
 }

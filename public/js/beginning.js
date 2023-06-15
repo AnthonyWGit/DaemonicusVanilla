@@ -33,7 +33,13 @@ function startTypewriter() {
       setTimeout(displayTexttwo, 30);
     } else {
       // Once the second text is fully displayed, start displaying the third text
+      aTagTwo.href = "game.php?choice=Hera";
+      aTagTwo.textContent = texttwo;
+  
+      textLocationtwo.innerHTML = '';
+      textLocationtwo.appendChild(aTagTwo); 
       setTimeout(displayTextthree, 1000);
+
     }
   }
   
@@ -46,6 +52,11 @@ function startTypewriter() {
       // Wait for a certain duration before appending the next character
       setTimeout(displayTextthree, 30);
     } else {
+      aTagThree.href = "game.php?choice=AkuAku";
+      aTagThree.textContent = textthree;
+  
+      textLocationthree.innerHTML = '';
+      textLocationthree.appendChild(aTagThree); 
       // Once the third text is fully displayed, start displaying the fourth text
       setTimeout(displayTextfour, 1000);
     }
@@ -60,12 +71,21 @@ function startTypewriter() {
       // Wait for a certain duration before appending the next character
       setTimeout(displayTextfour, 30);
     }
-  }
+    else {
+      aTagFour.href = "game.php?choice=Minotor";
+      aTagFour.textContent = textfour;
   
+      textLocationfour.innerHTML = '';
+      textLocationfour.appendChild(aTagFour); 
+      // Once the third text is fully displayed, start displaying the fourth text
+      setTimeout(displayTextfour, 1000);
+  }
+}
   const textLocationone = document.querySelector("#one");
   const textLocationtwo = document.querySelector("#two");
   const textLocationthree = document.querySelector("#three");
   const textLocationfour = document.querySelector("#four");
+  
   const textone = "Select your first Demon";
   const texttwo = "Hera";
   const textthree = "Aku-Aku";
@@ -75,5 +95,9 @@ function startTypewriter() {
   let indextwo = 0;
   let indexthree = 0;
   let indexfour = 0;
+  
+  let aTagTwo = document.createElement("a");
+  let aTagThree = document.createElement("a");
+  let aTagFour = document.createElement("a");
   
   startTypewriter();

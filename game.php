@@ -21,7 +21,21 @@ if (isset($_GET['action']))
                 break;
         }
 }
-
+else if (isset($_GET['choice'])) 
+{
+    switch ($_GET['choice'])
+        {
+            case "Hera":
+                $gameController->getHera();
+                break;
+            case "AkuAku":
+                $gameController->getAkuAku();
+                break;
+            case "Minotor":
+                $gameController->getMinotor();
+                break;
+        }
+}
 else
 {
     header("Location: index.php");

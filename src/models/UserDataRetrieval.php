@@ -1,6 +1,7 @@
 <?php
 
 namespace Models;
+use Models\Connect;
 
 class UserDataRetrieval
 {
