@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 //_________________________________AUTOLOAD_____________________________________
 spl_autoload_register(function ($class_name)
 {
@@ -16,12 +17,12 @@ if (isset($_GET['action']))
     switch ($_GET['action'])
         {
             case "process":
-                $gameController->userHasPkmn();
+                $gameController->beginnngGame();
                 break;
         }
 }
 
 else
 {
-    $homepageController->displayHomepage();
+    header("Location: index.php");
 }
