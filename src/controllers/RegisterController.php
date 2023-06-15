@@ -2,6 +2,7 @@
 
 namespace Controllers;
 use Models\Connect;
+use Models\GameStageModel;
 use DateTime;
 
 class RegisterController
@@ -198,9 +199,11 @@ class RegisterController
             $permissionUsername == true && $permissionPwd == true && $permission2 == true && $permission3 == true)
 
         {
-
             $this->registerDB($data);
             $_SESSION["msg"] = "Register OK";
+
+            $model = new GameStageModel();
+            $model->initialStage($data["username"]);
             header ("Location:index.php?action=registerOK");
         }
         else
