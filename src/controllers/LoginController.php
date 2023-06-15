@@ -15,8 +15,8 @@ class LoginController
         $stmt->bindValue(':username', $data["username"]);
         $stmt->execute();                                                     //The data we retrieve are in array form
         $user = $stmt->fetchAll();
-        return $user;
         unset($stmt);
+        return $user;        
     }
 
     function displayLogin()
@@ -72,6 +72,7 @@ class LoginController
                 $_SESSION['username'] = $data["username"];              //session stuff after require because in the views there is a sesssion start
                 $_SESSION["session"] = true; 
                 $_SESSION["privilege"] = $userData[0]["role"];
+                $_SESSION["userID"] = $userData[0]["id_joueur"];
                 header("Location:index.php?action=loginOK");
           
             }
