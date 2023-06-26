@@ -1,0 +1,105 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Merienda", cursive;
+}
+
+h1
+{
+    color: red;
+}
+
+html
+{
+    background-color: #FF8080;
+}
+.banner
+{
+    min-width: 100%;
+    height: 3em;
+    background-color: rgba(255, 255, 255, 0.15);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.divLoginBtn
+{
+    padding: 7.5px;
+}
+
+
+.loginBtn
+{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.wrapper
+{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    min-height: 100dvh;
+}
+
+.wrapperInside
+{
+    justify-content: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.insideBtn
+{
+    width: 5rem;
+    height: 5rem;
+}
+
+.player
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    width: 50%;
+}
+
+.cpu
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    width: 50%;
+}
+
+.actions
+{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height : 10dvh;
+    margin: 0 20% 2.5% 20%;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: aquamarine;
+}
+
+.actions .title
+{
+    display: flex;
+}
+
+.actionsElement
+{
+    display: flex;
+    gap: 1rem;
+}
