@@ -9,8 +9,10 @@ spl_autoload_register(function ($class_name)
 
 
 use Controllers\GameController;
+use Controllers\CombatController;
 
 $gameController = new GameController();
+$combatController = new CombatController();
 
 if (isset($_GET['action'])) 
 {
@@ -35,6 +37,14 @@ else if (isset($_GET['choice']))
                 $gameController->getMinotor();
                 break;
         }
+}
+else if (isset($_GET['combat'])) 
+{
+    $combatController->startCombat();
+}
+else if (isset($_GET['hub'])) 
+{
+    $gameController->displayHub();
 }
 else
 {
