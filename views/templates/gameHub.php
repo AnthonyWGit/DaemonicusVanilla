@@ -2,7 +2,7 @@
 
 <p>What do you want to do ? </p>
 
-<p>Fight</p>
+<p><a href="game.php?combat">Fight</a></p>
 
 <p>Buy items</p>
 
