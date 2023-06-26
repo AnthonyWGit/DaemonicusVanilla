@@ -30,7 +30,7 @@ class GameController
         {
             require_once("views/templates/gameNoDemon.php");
         }
-        else if ($arrayProg[0]["id_stade_jeu"] == 2 )
+        else if ($arrayProg[0]["id_stade_jeu"] > 1 )
         {
             $daemons = $dataretrievaal->getPkmnPlayer();
             require_once("views/templates/gameHub.php");
@@ -48,7 +48,7 @@ class GameController
         $newChoice->getHeraModel();
         $setStage->setProg(2);
 
-        require_once("views/templates/gameHub.php");
+        header("Location:game?game=Hub");
 
     }
     public function getAkuAku()
@@ -58,7 +58,7 @@ class GameController
         $newChoice->getAkuakuModel();
         $setStage->setProg(2);
 
-        require_once("views/templates/gameHub.php");
+        header("Location:game.php?game=Hub");
     }
     public function getMinotor()
     {
@@ -67,6 +67,12 @@ class GameController
         $newChoice->getMinotorModel();
         $setStage->setProg(2);
 
+        header("Location:game.php?game=Hub");
+    }
+
+    public function displayHub()
+    {
+        $daemons =  UserDataRetrievalSession::getPkmnPlayer();
         require_once("views/templates/gameHub.php");
     }
 }
