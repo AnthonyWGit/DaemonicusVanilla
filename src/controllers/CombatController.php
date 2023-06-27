@@ -16,9 +16,13 @@ class CombatController
     $daemonCPU = UserDataRetrievalSession::setCPUPkmn();
     $xpDaemonPlayer = $daemon[0]["experience"];
 
-    $daemonCPUMaxHP = 5;
+    $daemonCPUMaxHP = 50;
     $daemonPlayerMaxHP = Math::calcMaxHPPlayer();
     $daemonPlayerLevel = Math::calculateLevel($xpDaemonPlayer);
+
+    $daemonPlayerCurrentHP = $daemonPlayerMaxHP;
+
+    $daemonCPUCurrentHP = $daemonCPUMaxHP;
 
     var_dump($xpDaemonPlayer);
     var_dump($daemonPlayerLevel);

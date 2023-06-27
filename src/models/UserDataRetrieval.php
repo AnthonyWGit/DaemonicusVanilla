@@ -52,9 +52,9 @@ class UserDataRetrieval
         $mySQLconnection = Connect::connexion();
         $sqlQuery = 'SELECT id_joueur FROM joueur
                     WHERE  pseudo_joueur = :username'; 
-        $stmt = $mySQLconnection->prepare($sqlQuery);                        //Prepare, execute, then fetch to retrieve data
+        $stmt = $mySQLconnection->prepare($sqlQuery);            
         $stmt->bindValue(':username', $data);
-        $stmt->execute();                                                     //The data we retrieve are in array form
+        $stmt->execute();                                                
         $user = $stmt->fetchAll();
         unset($stmt);
         return $user;

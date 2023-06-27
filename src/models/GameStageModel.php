@@ -16,11 +16,11 @@ class GameStageModel
         $mySQLconnection = Connect::connexion();
         $sqlQuery = 'INSERT INTO progression 
                     VALUES (:id_joueur, :id_stade_jeu) '; 
-        $stmt = $mySQLconnection->prepare($sqlQuery);                        //Prepare, execute, then fetch to retrieve data
+        $stmt = $mySQLconnection->prepare($sqlQuery);                     
         $stmt->bindValue(':id_joueur', $userID[0]["id_joueur"]);
         var_dump($userID);
         $stmt->bindValue(':id_stade_jeu', 1);
-        $stmt->execute();                                                     //The data we retrieve are in array form
+        $stmt->execute();                                                
         $user = $stmt->fetchAll();
         unset($stmt);
     }

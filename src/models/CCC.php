@@ -9,8 +9,8 @@ class CCC
     {
         $mySQLconnection = Connect::connexion();
         $sqlQuery = 'SELECT * from caractere';
-        $stmt = $mySQLconnection->prepare($sqlQuery);                        //Prepare, execute, then fetch to retrieve data
-        $stmt->execute();                                                     //The data we retrieve are in array form
+        $stmt = $mySQLconnection->prepare($sqlQuery);                   
+        $stmt->execute();                                                 
         $caracteres = $stmt->fetchAll();
         unset($stmt);
         return $caracteres;        

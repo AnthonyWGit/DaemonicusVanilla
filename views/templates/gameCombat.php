@@ -4,13 +4,21 @@
         <p id="deamonPlayer"> <?= $daemon[0]["nom_pkm"] ?></p>
 
         <div class="hp-bar">
-            <div class="hp-fill" style="width: 75%;"></div>
+            <div class="hp-fill">
+
+            </div>
         </div>
     </div>
 
     <div class="cpu">
         <p id="deamonCPU"><?= $daemonCPU[0]["nom_pkm"] ?></p>
+        <div class="hp-bar">
+            <div class="hp-fill">
+                
+            </div>
+        </div>
     </div>
+    
 </div>
 <div class="actions">
     <p class="title">What do you want to do ?</p> 
