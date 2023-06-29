@@ -14,32 +14,49 @@ class CombatController
  {
    $daemon = UserDataRetrievalSession::getPkmnPlayerOrderOne();
    $daemonCPU = UserDataRetrievalSession::setCPUPkmn();
+
+   $getStatsPlayer = UserDataRetrievalSession::getPlayerDaemonStats();
+   $getStatsCPU = UserDataRetrievalSession::getCPUDaemonStatsFirst();   
+
    $xpDaemonPlayer = $daemon[0]["experience"];
+   $xpDaemonCPU = $getStatsCPU[0]["experience"];
 
    $daemonCPUMaxHP = 50;
    $daemonPlayerMaxHP = Math::calcMaxHPPlayer();
+
    $daemonPlayerLevel = Math::calculateLevel($xpDaemonPlayer);
+   $daemonCPULevel = Math::calculateLevel($xpDaemonCPU);
 
    $daemonPlayerCurrentHP = $daemonPlayerMaxHP;
-
    $daemonCPUCurrentHP = $daemonCPUMaxHP;
-
-   // var_dump($xpDaemonPlayer);
-   // var_dump($daemonPlayerLevel);
-   // var_dump($daemonPlayerMaxHP);
 
    UserDataRetrievalSession::startNewCombat($daemonPlayerMaxHP, $daemonCPUMaxHP);
 
-   $statsPlayer = UserDataRetrievalSession::getPlayerDaemonStatsFirst();
-   $statsCPU = UserDataRetrievalSession::getCPUDaemonStatsFirst();
 
-   $forcePlayer = Math::calcFor();
 
-   var_dump($forcePlayer);
+   $playerOrderOne = UserDataRetrievalSession::getOrderOnePlayer();
 
-   // var_dump($statsPlayer);
-   // var_dump($statsCPU);
-   // var_dump($_SESSION["id_CPU_daemon"]);
+   $statsPlayer = Math::calcStatsPlayer();
+   $statsCPU = Math::calcStatsCPU();
+
+   $firstDaemonAgiPlayer = array_values($statsPlayer[1]);
+   $firstDaemonAgiPlayer = $firstDaemonAgiPlayer[0]["agi"];
+
+   $firstDaemonAgiCPU = array_values($statsCPU[1]);
+   $firstDaemonAgiCPU = $firstDaemonAgiCPU[0]["agi"];
+
+   if ($firstDaemonAgiPlayer > $firstDaemonAgiCPU)//player pkmn has higher agi
+   {
+      $initiative = "player";
+   }
+   else if ($firstDaemonAgiPlayer < $firstDaemonAgiCPU)
+   {
+      $initiative = "CPU";
+   }
+   else //both pkmn have same agi 
+   {
+      $initiative = (rand(0, 1) === 0) ? "CPU" : "player";
+   }
    
    require_once ("views/templates/gameCombat.php");
  }
