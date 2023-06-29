@@ -13,38 +13,44 @@ use Controllers\CombatController;
 
 $gameController = new GameController();
 $combatController = new CombatController();
-
-if (isset($_GET['action'])) 
+if ($_SESSION["session"]) //Session must be set to play the game ; if not redirect to home page 
 {
-    switch ($_GET['action'])
-        {
-            case "process":
-                $gameController->beginnngGame();
-                break;
-        }
-}
-else if (isset($_GET['choice'])) 
-{
-    switch ($_GET['choice'])
-        {
-            case "Hera":
-                $gameController->getHera();
-                break;
-            case "AkuAku":
-                $gameController->getAkuAku();
-                break;
-            case "Minotor":
-                $gameController->getMinotor();
-                break;
-        }
-}
-else if (isset($_GET['combat'])) 
-{
-    $combatController->startCombat();
-}
-else if (isset($_GET['hub'])) 
-{
-    $gameController->displayHub();
+    if (isset($_GET['action'])) 
+    {
+        switch ($_GET['action'])
+            {
+                case "process":
+                    $gameController->beginnngGame();
+                    break;
+            }
+    }
+    else if (isset($_GET['choice'])) 
+    {
+        switch ($_GET['choice'])
+            {
+                case "Hera":
+                    $gameController->getHera();
+                    break;
+                case "AkuAku":
+                    $gameController->getAkuAku();
+                    break;
+                case "Minotor":
+                    $gameController->getMinotor();
+                    break;
+            }
+    }
+    else if (isset($_GET['combat'])) 
+    {
+        $combatController->startCombat();
+    }
+    else if (isset($_GET['hub'])) 
+    {
+        $gameController->displayHub();
+    }
+    else
+    {
+        header("Location: index.php");
+    }    
 }
 else
 {
