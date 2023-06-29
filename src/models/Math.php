@@ -66,4 +66,53 @@ class Math
         $daemonHP = 50 + (5 * $endPKMN);
         return $daemonHP;
     }    
+
+    public static function calcFor()
+    {
+        $forcePKMNs = UserDataRetrievalSession::getPlayerDaemonStatsFirst();
+        foreach ($forcePKMNs as $forcePKMN)
+        {
+            if ($forcePKMN["force_pkmn_2"] < 0)
+            {
+                $calcFor[$forcePKMN["nom_pkm"]]["for"] = floor($forcePKMN["force_pkmn"] + ((1 / 100) * $forcePKMN["force_pkmn_2"]));  
+            }
+            else
+            {
+                $calcFor[$forcePKMN["nom_pkm"]]["for"] = floor($forcePKMN["force_pkmn"] - ((1 / 100) * $forcePKMN["force_pkmn_2"]));  
+            }
+            if ($forcePKMN["agi_pkmn_2"] < 0)
+            {
+                $calcFor[$forcePKMN["nom_pkm"]]["agi"] = floor($forcePKMN["agi_pkmn"] + ((1 / 100) * $forcePKMN["agi_pkmn_2"]));  
+            }
+            else
+            {
+                $calcFor[$forcePKMN["nom_pkm"]]["agi"] = floor($forcePKMN["agi_pkmn"] - ((1 / 100) * $forcePKMN["agi_pkmn_2"]));  
+            }
+            if ($forcePKMN["end_pkmn_2"] < 0)
+            {
+                $calcFor[$forcePKMN["nom_pkm"]]["end"] = floor($forcePKMN["end_pkmn"] + ((1 / 100) * $forcePKMN["end_pkmn_2"]));  
+            }
+            else
+            {
+                $calcFor[$forcePKMN["nom_pkm"]]["end"] = floor($forcePKMN["end_pkmn"] - ((1 / 100) * $forcePKMN["end_pkmn_2"]));  
+            }
+            if ($forcePKMN["int_pkmn_2"] < 0)
+            {
+                $calcFor[$forcePKMN["nom_pkm"]]["int"] = floor($forcePKMN["int_pkmn"] + ((1 / 100) * $forcePKMN["int_pkmn_2"]));  
+            }
+            else
+            {
+                $calcFor[$forcePKMN["nom_pkm"]]["int"] = floor($forcePKMN["int_pkmn"] - ((1 / 100) * $forcePKMN["int_pkmn_2"]));  
+            }
+            if ($forcePKMN["luck_pkmn_2"] < 0)
+            {
+                $calcFor[$forcePKMN["nom_pkm"]]["luck"] = floor($forcePKMN["luck_pkmn"] + ((1 / 100) * $forcePKMN["luck_pkmn_2"]));  
+            }
+            else
+            {
+                $calcFor[$forcePKMN["nom_pkm"]]["for"] = floor($forcePKMN["luck_pkmn"] - ((1 / 100) * $forcePKMN["luck_pkmn_2"]));  
+            }
+        }
+        return $calcFor;
+    }
 }
