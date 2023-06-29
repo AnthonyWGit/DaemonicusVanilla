@@ -1,7 +1,7 @@
 <?php ob_start() ?>
 <div class="wrapperInside">
     <div class="player">
-        <p id="deamonPlayer"> <?= $daemon[0]["nom_pkm"] ?></p>
+        <p id="deamonPlayer"> <?= $daemon[0]["nom_pkm"] ?> Level <?= $daemonPlayerLevel ?></p>
 
         <div class="hp-bar">
             <div class="hp-fill">
@@ -11,7 +11,7 @@
     </div>
 
     <div class="cpu">
-        <p id="deamonCPU"><?= $daemonCPU[0]["nom_pkm"] ?></p>
+        <p id="deamonCPU"><?= $daemonCPU[0]["nom_pkm"] ?> Level <?= $daemonCPULevel ?></p>
         <div class="hp-bar">
             <div class="hp-fill">
                 
