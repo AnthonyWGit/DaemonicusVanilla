@@ -149,13 +149,12 @@ class UserDataRetrievalSession
         return $lastInsertID;
     }
 
-    static public function getPlayerDaemonStatsFirst() //id of player of unique so we can use it 
+    static public function getOrderOnePlayer() //id of player of unique so we can use it 
     {
         $mySQLconnection = Connect::connexion();
         $sqlQuery = 'SELECT * FROM pkmn_joueur INNER JOIN joueur ON pkmn_joueur.id_joueur = joueur.id_joueur
-                    INNER JOIN pkmn on pkmn_joueur.id_pkmn = pkmn.id_pkmn 
-                    INNER JOIN caractere ON pkmn_joueur.id_caractere = caractere.id_caractere
-                    AND joueur.id_joueur = :id_joueur'; 
+                    WHERE joueur.id_joueur = :id_joueur
+                    AND pkmn_joueur.ordre_pkmn = 1'; 
         $stmt = $mySQLconnection->prepare($sqlQuery);
         $stmt->bindValue(':id_joueur',$_SESSION['userID']);               
         $stmt->execute();          
@@ -164,14 +163,28 @@ class UserDataRetrievalSession
         return $stats;
     }
 
-    static public function getCPUDaemonStatsFirst() //we can't use cp id because it will show ALL the cpu pkmn
-                                                    //Multiple players = theyre will be a lot of entries 
+    static public function getPlayerDaemonStats() //id of player of unique so we can use it 
     {
-        $playerDaemon = UserDataRetrievalSession::getPlayerDaemonStatsFirst();
-        $playerDaemon = $playerDaemon[0]["id_pkmn_joueur"];
         $mySQLconnection = Connect::connexion();
         $sqlQuery = 'SELECT * FROM pkmn_joueur INNER JOIN joueur ON pkmn_joueur.id_joueur = joueur.id_joueur
                     INNER JOIN pkmn on pkmn_joueur.id_pkmn = pkmn.id_pkmn 
+                    INNER JOIN caractere ON pkmn_joueur.id_caractere = caractere.id_caractere
+                    WHERE joueur.id_joueur = :id_joueur'; 
+        $stmt = $mySQLconnection->prepare($sqlQuery);
+        $stmt->bindValue(':id_joueur',$_SESSION['userID']);               
+        $stmt->execute();          
+        $stats = $stmt->fetchAll();
+        unset($stmt);
+        return $stats;
+    }
+    static public function getCPUDaemonStatsFirst() //we can't use cp id because it will show ALL the cpu pkmn
+                                                    //Multiple players = theyre will be a lot of entries 
+
+    {
+        $mySQLconnection = Connect::connexion();
+        $sqlQuery = 'SELECT * FROM pkmn_joueur INNER JOIN joueur ON pkmn_joueur.id_joueur = joueur.id_joueur
+                    INNER JOIN pkmn on pkmn_joueur.id_pkmn = pkmn.id_pkmn 
+                    INNER JOIN caractere ON pkmn_joueur.id_caractere = caractere.id_caractere
                     WHERE pkmn_joueur.id_pkmn_joueur = :id'; 
         $stmt = $mySQLconnection->prepare($sqlQuery);
         $stmt->bindValue(':id',$_SESSION["id_CPU_daemon"]);                       
