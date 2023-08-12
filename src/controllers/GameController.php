@@ -48,7 +48,7 @@ class GameController
         $newChoice->getHeraModel();
         $setStage->setProg(2);
 
-        header("Location:game?game=Hub");
+        header("Location:game.php?Hub");
 
     }
     public function getAkuAku()
@@ -58,7 +58,7 @@ class GameController
         $newChoice->getAkuakuModel();
         $setStage->setProg(2);
 
-        header("Location:game.php?game=Hub");
+        header("Location:game.php?Hub");
     }
     public function getMinotor()
     {
@@ -67,7 +67,7 @@ class GameController
         $newChoice->getMinotorModel();
         $setStage->setProg(2);
 
-        header("Location:game.php?game=Hub");
+        header("Location:game.php?Hub");
     }
 
     public function displayHub()
