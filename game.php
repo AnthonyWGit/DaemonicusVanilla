@@ -43,7 +43,7 @@ if ($_SESSION["session"]) //Session must be set to play the game ; if not redire
     {
         $combatController->startCombat();
     }
-    else if (isset($_GET['hub'])) 
+    else if (isset($_GET['Hub']))
     {
         $gameController->displayHub();
     }
