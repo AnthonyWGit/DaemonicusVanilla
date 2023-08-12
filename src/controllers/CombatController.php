@@ -14,9 +14,10 @@ class CombatController
  {
    $daemon = UserDataRetrievalSession::getPkmnPlayerOrderOne();
    $daemonCPU = UserDataRetrievalSession::setCPUPkmn();
+   UserDataRetrievalSession::generateCPUDaemon();
 
    $getStatsPlayer = UserDataRetrievalSession::getPlayerDaemonStats();
-   $getStatsCPU = UserDataRetrievalSession::getCPUDaemonStatsFirst();   
+   $getStatsCPU = UserDataRetrievalSession::getCPUDaemonStatsFirst();
 
    $xpDaemonPlayer = $daemon[0]["experience"];
    $xpDaemonCPU = $getStatsCPU[0]["experience"];
@@ -58,6 +59,20 @@ class CombatController
       $initiative = (rand(0, 1) === 0) ? "CPU" : "player";
    }
    
+   //loading abilities
+
+   $deamon1ability = UserDataRetrievalSession::getPlayerPkmnAbilities($daemonPlayerLevel);
+   $skillNames = $deamon1ability;
+   var_dump($skillNames);
+
+   //searching ability names 
+   $arrayOfSkills = array_column($deamon1ability, 'nom_compétence');
+   $arrayOfSkillsJson = json_encode($arrayOfSkills);
+   // foreach ($nomCompetences as $nom) 
+   // {
+   //     echo $nom . "<br>";
+   // }
+
    require_once ("views/templates/gameCombat.php");
  }
 }
