@@ -26,13 +26,48 @@
         <p id="daemon_skill">Daemon action</p>
         <p id="item">Use item</p>
         <p id="switch">Switch Daemon</p>
-        <p id="flee">Flee !</p>        
+        <p id="flee">Flee !</p>      
     </div>
+
 
 </div>
 
+
 <script>
-        var initiative = "<?php echo $initiative; ?>";
+
+    function targetElements() 
+    {
+        daemonSkills.remove();
+        item.remove();
+        switchF.remove();
+        flee.remove();
+        titleMenu.remove();
+        
+        // Iterate through the arraySkillsJson and create paragraphs
+        arraySkillsJson.forEach
+        (
+            function(skillText) 
+                {
+                    let newParagraph = document.createElement("p");
+                    newParagraph.textContent = skillText;
+                    actionsElement.appendChild(newParagraph);
+                }
+        );
+        
+    }
+
+    let actionsElement = document.querySelector(".actionsElement");
+    const daemonSkills = document.querySelector("#daemon_skill");
+    const item = document.querySelector("#item");
+    const switchF = document.querySelector("#switch");
+    const flee = document.querySelector("#flee");
+    const titleMenu = document.querySelector("p.title");
+    const actionsMenu = document.querySelector("#actions_menu");
+
+    daemonSkills.addEventListener("click", targetElements);
+    let initiative = "<?php echo $initiative; ?>";
+    let arraySkillsJson = <?php echo $arrayOfSkillsJson; ?>;
+    console.log(arraySkillsJson);
 </script>
 
 <?php $content = ob_get_clean() ?>
