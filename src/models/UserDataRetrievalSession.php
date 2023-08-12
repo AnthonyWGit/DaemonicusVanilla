@@ -86,7 +86,6 @@ class UserDataRetrievalSession
         $stmt->bindValue(":id_joueur", $cpuID2, \PDO::PARAM_INT);
         $stmt->execute(); // Execute the prepared statement
         $CPUIdDaemon = $stmt->fetchAll();
-        
         unset($stmt);
         return $CPUIdDaemon;
     }
@@ -144,9 +143,10 @@ class UserDataRetrievalSession
         $stmt = $mySQLconnection->prepare($sqlQuery);                    
         $stmt->execute($arrayToExecute);
         $lastInsertID = $mySQLconnection->lastInsertId();
-        $_SESSION["id_CPU_daemon"] = $lastInsertID;                                     
+        var_dump($lastInsertID);
+        $_SESSION["id_CPU_daemon"] = $lastInsertID;                                
         unset($stmt);
-        return $lastInsertID;
+        return $lastInsertID;             
     }
 
     static public function getOrderOnePlayer() //id of player of unique so we can use it 

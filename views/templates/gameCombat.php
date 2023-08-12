@@ -20,16 +20,20 @@
     </div>
     
 </div>
-<div class="actions">
+<div class="actions" id="actions_menu">
     <p class="title">What do you want to do ?</p> 
     <div class="actionsElement">
-        <p>Daemon action </p>
-        <p>Use item</p>
-        <p>Switch Daemon</p>
-        <p>Flee !</p>        
+        <p id="daemon_skill">Daemon action</p>
+        <p id="item">Use item</p>
+        <p id="switch">Switch Daemon</p>
+        <p id="flee">Flee !</p>        
     </div>
 
 </div>
+
+<script>
+        var initiative = "<?php echo $initiative; ?>";
+</script>
 
 <?php $content = ob_get_clean() ?>
 
