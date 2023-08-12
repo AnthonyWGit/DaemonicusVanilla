@@ -94,7 +94,6 @@ class UserDataRetrievalSession
     {
 
         $firstDeamon = UserDataRetrievalSession::getPkmnPlayerOrderOne();
-        UserDataRetrievalSession::generateCPUDaemon();
 
         $daemonCPU = UserDataRetrievalSession::getCPUIDFirstPKmn();
         $daemonCPU = $daemonCPU[0]["id_pkmn_joueur"];
@@ -194,4 +193,21 @@ class UserDataRetrievalSession
         return $stats;
     }
 
+    static public function getPlayerPkmnAbilities($level)
+    {
+        $mySQLconnection = Connect::connexion();
+        $sqlQuery = 'SELECT * FROM joueur 
+        INNER JOIN pkmn_joueur ON pkmn_joueur.id_joueur = joueur.id_joueur
+        INNER JOIN pkmn ON pkmn_joueur.id_pkmn = pkmn.id_pkmn
+        INNER JOIN apprendre_competence ON apprendre_competence.id_pkmn = pkmn.id_pkmn
+        INNER JOIN competence ON apprendre_competence.id_competence = competence.id_competence
+        WHERE joueur.id_joueur= :id_joueur AND competence.niveau_comp <= :level '; 
+        $stmt = $mySQLconnection->prepare($sqlQuery);
+        $stmt->bindValue(':id_joueur',$_SESSION['userID']);
+        $stmt->bindValue(':level',$level);           
+        $stmt->execute();
+        $stats = $stmt->fetchAll();
+        unset($stmt);
+        return $stats;
+    }
 }
