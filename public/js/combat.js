@@ -1,12 +1,12 @@
 
-function displaySkills()
-{
+// function displaySkills()
+// {
   
-}
+// }
 
 
-console.log(initiative);
+// console.log(initiative);
 
-var tour = 1;
+// var tour = 1;
 
-const daemonActionsQuerySelector = document.querySelector("#daemon_skill")
+// const daemonActionsQuerySelector = document.querySelector("#daemon_skill")
