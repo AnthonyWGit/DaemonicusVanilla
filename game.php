@@ -39,9 +39,21 @@ if ($_SESSION["session"]) //Session must be set to play the game ; if not redire
                     break;
             }
     }
-    else if (isset($_GET['combat'])) 
+    else if (isset($_GET['combat']))
     {
-        $combatController->startCombat();
+        switch ($_GET['combat'])
+        {
+            case "skill":
+                $currentURL = $_SERVER['REQUEST_URI'];
+                $skillParts = explode('&', $currentURL); // Split the string at the '&' symbol
+                $_SESSION["skill"] = $skillParts[1]; //getting the name of skill used 
+                $combatController->dmgDealt();
+                break;
+
+            default:
+                $combatController->startCombat();
+                break;
+        }
     }
     else if (isset($_GET['Hub']))
     {
