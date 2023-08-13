@@ -66,7 +66,6 @@ class Math
     public static function calcStatsPlayer()
     {
         $forcePKMNs = UserDataRetrievalSession::getPlayerDaemonStats();
-        var_dump($forcePKMNs);
         foreach ($forcePKMNs as $forcePKMN)
         {
             if ($forcePKMN["force_pkmn_2"] < 0)
@@ -179,8 +178,9 @@ class Math
         return $calcFor;
     }
 
-    static public function calcDmgPhys($skillPotency)
+    static public function calcDmgPhys($skillPotency, $deamonFirstPlayerStats, $inArrayStatsCPU)
     {
-        $dmg = floor();
+        $dmg = intval(floor(($deamonFirstPlayerStats[0]["for"] + ($skillPotency * 0.1))) * (1 - (0.01 * $inArrayStatsCPU[0]["def"])));
+        return $dmg;
     }
 }
