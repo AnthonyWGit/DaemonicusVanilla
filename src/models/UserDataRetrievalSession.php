@@ -79,12 +79,11 @@ class UserDataRetrievalSession
         $cpuID = UserDataRetrievalSession::getCPUID();
         $cpuID2 = $cpuID[0]["id_joueur"];
         
-        // SQL request
         $mySQLconnection = Connect::connexion();
-        $sqlQuery = 'SELECT * FROM pkmn_joueur WHERE id_joueur = :id_joueur'; 
+        $sqlQuery = 'SELECT * FROM pkmn_joueur WHERE id_joueur = :id_joueur';
         $stmt = $mySQLconnection->prepare($sqlQuery);
         $stmt->bindValue(":id_joueur", $cpuID2, \PDO::PARAM_INT);
-        $stmt->execute(); // Execute the prepared statement
+        $stmt->execute();
         $CPUIdDaemon = $stmt->fetchAll();
         unset($stmt);
         return $CPUIdDaemon;
@@ -142,7 +141,6 @@ class UserDataRetrievalSession
         $stmt = $mySQLconnection->prepare($sqlQuery);                    
         $stmt->execute($arrayToExecute);
         $lastInsertID = $mySQLconnection->lastInsertId();
-        var_dump($lastInsertID);
         $_SESSION["id_CPU_daemon"] = $lastInsertID;                                
         unset($stmt);
         return $lastInsertID;             
@@ -209,5 +207,18 @@ class UserDataRetrievalSession
         $stats = $stmt->fetchAll();
         unset($stmt);
         return $stats;
+    }
+
+    static public function getSkillData()
+    {
+        $mySQLconnection = Connect::connexion();
+        $sqlQuery = 'SELECT * FROM competence
+                    WHERE nom_compétence = :nom_competence';
+        $stmt = $mySQLconnection->prepare($sqlQuery);
+        $stmt->bindValue(':nom_competence', $_SESSION["skill"]);
+        $stmt->execute();
+        $skillData= $stmt->fetchAll();
+        unset($stmt);
+        return $skillData;
     }
 }
