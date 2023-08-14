@@ -180,19 +180,39 @@ class Math
 
     static public function calcDmg($skillPotency, $deamonFirstPlayerStats, $inArrayStatsCPU, $skillType)
     {
-        if ($skillType == "phys")
+        if ($_SESSION["round"] == "player")
         {
-            $dmg = intval(floor(($deamonFirstPlayerStats[0]["for"] + ($skillPotency * 0.1))) * (1 - (0.01 * $inArrayStatsCPU[0]["def"])));
-            return $dmg;            
-        }
-        else if ($skillType == "mag")
-        {
-            $dmg = intval(floor(($deamonFirstPlayerStats[0]["int"] + ($skillPotency * 0.1))) * (1 - (0.01 * $inArrayStatsCPU[0]["def"])));
-            return $dmg;            
+            if ($skillType == "phys")
+            {
+                $dmg = intval(floor(($deamonFirstPlayerStats[0]["for"] + ($skillPotency * 0.1))) * (1 - (0.01 * $inArrayStatsCPU[0]["def"])));
+                return $dmg;            
+            }
+            else if ($skillType == "mag")
+            {
+                $dmg = intval(floor(($deamonFirstPlayerStats[0]["int"] + ($skillPotency * 0.1))) * (1 - (0.01 * $inArrayStatsCPU[0]["def"])));
+                return $dmg;            
+            }
+            else
+            {
+
+            }            
         }
         else
         {
+            if ($skillType == "phys")
+            {
+                $dmg = intval(floor(($inArrayStatsCPU[0]["for"] + ($skillPotency * 0.1))) * (1 - (0.01 * $deamonFirstPlayerStats[0]["def"])));
+                return $dmg;            
+            }
+            else if ($skillType == "mag")
+            {
+                $dmg = intval(floor(($inArrayStatsCPU[0]["int"] + ($skillPotency * 0.1))) * (1 - (0.01 * $deamonFirstPlayerStats[0]["def"])));
+                return $dmg;            
+            }
+            else
+            {
 
+            }     
         }
     }
 }

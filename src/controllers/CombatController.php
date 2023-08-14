@@ -48,14 +48,24 @@ class CombatController
    if ($firstDaemonAgiPlayer > $firstDaemonAgiCPU)//player pkmn has higher agi
    {
       $initiative = "player";
+      $_SESSION["round"] = "player";
    }
    else if ($firstDaemonAgiPlayer < $firstDaemonAgiCPU)
    {
       $initiative = "CPU";
+      $_SESSION["round"] = "CPU";
    }
    else //both pkmn have same agi 
    {
       $initiative = (rand(0, 1) === 0) ? "CPU" : "player";
+      if ($initiative == "player")
+      {
+         $_SESSION["round"] = "player";
+      }
+      else
+      {
+         $_SESSION["round"] = "CPU";
+      }
    }
    
    //loading abilities
@@ -87,7 +97,14 @@ class CombatController
    $deamonFirstPlayerStats = array_values($statsPlayer[1]);
    $inArrayStatsCPU = array_values($statsCPU[1]);
    // var_dump($inArrayStatsCPU[0]["for"]);
-  $jsonCurrentCPUHp = json_encode($_SESSION["CPUDaemonCurrentHP"]);
+
+   //json encodes 
+   //Need json encore so we can use php var in js code
+   $jsonCurrentCPUHp = json_encode($_SESSION["CPUDaemonCurrentHP"]);
+   $jsonCurrentPlayerHp = json_encode($_SESSION["playerDaemonCurrentHP"]);
+   //js will need max hp data to calculate HP graphic bar
+   $jsonMaxCPUHp = json_encode($_SESSION["CPUDaemonMaxHP"]);
+   $jsonMaxPlayerHp = json_encode($_SESSION["playerDaemonMaxHP"]);
    require_once ("views/templates/gameCombat.php");
  }
 
@@ -114,6 +131,7 @@ class CombatController
    $statsCPU = Math::calcStatsCPU();
 
    $daemonCPUCurrentHP = $_SESSION["CPUDaemonCurrentHP"];
+   $daemonPlayerCurrentHP = $_SESSION["playerDaemonCurrentHP"];
 
    $deamonFirstPlayerStats = array_values($statsPlayer[1]); //Searching stats for the daemon dealing dmg wich is always first 
    $inArrayStatsCPU = array_values($statsCPU[1]);
@@ -131,7 +149,7 @@ class CombatController
 
    $daemonCPU[0]["nom_pkm"] = $keyImp;
 
-   if ($_SESSION["initiative"] == "player")
+   if ($_SESSION["round"] == "player")
    {
       $dmg = Math::calcDmg($skillPotency, $deamonFirstPlayerStats, $inArrayStatsCPU, $skillType);
 
@@ -146,19 +164,50 @@ class CombatController
             // var_dump($_SESSION["CPUDaemonCurrentHP"]);
          }
    }
+   else
+   {
+      $dmg = Math::calcDmg($skillPotency, $deamonFirstPlayerStats, $inArrayStatsCPU, $skillType);
+
+      if ($_SESSION["playerDaemonCurrentHP"] == "")
+      {
+         header("Location:game.php?Hub");
+      }
+      else
+      {
+         $_SESSION["playerDaemonCurrentHP"] = $daemonPlayerCurrentHP - $dmg;
+         // var_dump($dmg);
+         // var_dump($_SESSION["CPUDaemonCurrentHP"]);
+      }
+   }
 
    $deamon1ability = UserDataRetrievalSession::getPlayerPkmnAbilities($daemonPlayerLevel);
    $skillNames = $deamon1ability;
+
+   //json encodes
    $arrayOfSkills = array_column($deamon1ability, 'nom_compétence');
    $arrayOfSkillsJson = json_encode($arrayOfSkills);
    $jsonCurrentCPUHp = json_encode($_SESSION["CPUDaemonCurrentHP"]);
-
+   $jsonCurrentPlayerHp = json_encode($_SESSION["playerDaemonCurrentHP"]);
+   $jsonMaxCPUHp = json_encode($_SESSION["CPUDaemonMaxHP"]);
+   $jsonMaxPlayerHp = json_encode($_SESSION["playerDaemonMaxHP"]);
 
    //If CPU is dead
    if ($_SESSION["CPUDaemonCurrentHP"] < 1)
    {
       $_SESSION["CPUDaemonCurrentHP"] = "";
    }
+
+   //switching turns from player to CPU
+   if ($_SESSION["round"] == "player")
+   {
+      $_SESSION["round"] = "CPU";
+   }
+   //switching turns from CPU to player
+   else
+   {
+      ($_SESSION["round"] = "player");
+   }
+
    require_once ("views/templates/gameCombat.php");
  }
 }
