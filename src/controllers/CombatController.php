@@ -108,6 +108,8 @@ class CombatController
    $skillData = UserDataRetrievalSession::getSkillData();
    $skillPotency = $skillData[0]["degat_comp"];
 
+   $skillType = $skillData[0]["type"];
+
    $statsPlayer = Math::calcStatsPlayer();
    $statsCPU = Math::calcStatsCPU();
 
@@ -131,9 +133,9 @@ class CombatController
 
    if ($_SESSION["initiative"] == "player")
    {
-      $dmg = Math::calcDmgPhys($skillPotency, $deamonFirstPlayerStats, $inArrayStatsCPU);
+      $dmg = Math::calcDmg($skillPotency, $deamonFirstPlayerStats, $inArrayStatsCPU, $skillType);
 
-         if ($_SESSION["CPUDaemonCurrentHP"] == "Dead")
+         if ($_SESSION["CPUDaemonCurrentHP"] == "")
          {
             header("Location:game.php?Hub");
          }
@@ -155,7 +157,7 @@ class CombatController
    //If CPU is dead
    if ($_SESSION["CPUDaemonCurrentHP"] < 1)
    {
-      $_SESSION["CPUDaemonCurrentHP"] = "Dead";
+      $_SESSION["CPUDaemonCurrentHP"] = "";
    }
    require_once ("views/templates/gameCombat.php");
  }

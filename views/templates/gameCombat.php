@@ -2,7 +2,7 @@
 <div class="wrapperInside">
     <div class="player">
         <p id="deamonPlayer"> <?= $daemon[0]["nom_pkm"] ?> Level <?= $daemonPlayerLevel ?></p>
-        <p id="deamonPlayerHP"> <?= $_SESSION["playerDaemonCurrentHP"] ?> HP </p>
+        <p id="deamonPlayerHP"> <?= $_SESSION["playerDaemonCurrentHP"] != "" ? $_SESSION["playerDaemonCurrentHP"]. " HP" : "Dead" ?> </p>
         <div class="hp-bar">
             <div class="hp-fill" >
 
@@ -12,7 +12,7 @@
 
     <div class="cpu">
         <p id="deamonCPU"><?= $daemonCPU[0]["nom_pkm"] ?> Level <?= $daemonCPULevel ?></p>
-        <p id="deamonPlayerHP"> <?= $_SESSION["CPUDaemonCurrentHP"] ?> HP </p>
+        <p id="deamonPlayerHP"> <?= $_SESSION["CPUDaemonCurrentHP"] != "" ? $_SESSION["CPUDaemonCurrentHP"]." HP" : "Dead" ?> </p>
         <div class="hp-bar">
             <div class="hp-fill" id="hp_fill_cpu">
                 
@@ -73,10 +73,19 @@
     const hpFillCPU = document.querySelector("#hp_fill_cpu");
 
     let currentCPUHP = <?php echo $jsonCurrentCPUHp; ?>;
+    console.log(currentCPUHP)
+    if (currentCPUHP <0 ) 
+    {
+        hpFillCPU.style.width = 0
+    }
+    else
+    {
+        hpFillCPU.style.width = currentCPUHP        
+    }
     let arraySkillsJson = <?php echo $arrayOfSkillsJson; ?>;
 
     daemonSkills.addEventListener("click", targetElements);
-    hpFillCPU.style.width = currentCPUHP
+
 
     console.log(arraySkillsJson);
 </script>

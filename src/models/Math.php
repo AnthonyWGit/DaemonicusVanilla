@@ -178,9 +178,21 @@ class Math
         return $calcFor;
     }
 
-    static public function calcDmgPhys($skillPotency, $deamonFirstPlayerStats, $inArrayStatsCPU)
+    static public function calcDmg($skillPotency, $deamonFirstPlayerStats, $inArrayStatsCPU, $skillType)
     {
-        $dmg = intval(floor(($deamonFirstPlayerStats[0]["for"] + ($skillPotency * 0.1))) * (1 - (0.01 * $inArrayStatsCPU[0]["def"])));
-        return $dmg;
+        if ($skillType == "phys")
+        {
+            $dmg = intval(floor(($deamonFirstPlayerStats[0]["for"] + ($skillPotency * 0.1))) * (1 - (0.01 * $inArrayStatsCPU[0]["def"])));
+            return $dmg;            
+        }
+        else if ($skillType == "mag")
+        {
+            $dmg = intval(floor(($deamonFirstPlayerStats[0]["int"] + ($skillPotency * 0.1))) * (1 - (0.01 * $inArrayStatsCPU[0]["def"])));
+            return $dmg;            
+        }
+        else
+        {
+
+        }
     }
 }
