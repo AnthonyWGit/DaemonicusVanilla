@@ -209,6 +209,24 @@ class UserDataRetrievalSession
         return $stats;
     }
 
+    static public function getCPUPkmnAbilities($CPUlevel)
+    {
+        $mySQLconnection = Connect::connexion();
+        $sqlQuery = 'SELECT * FROM joueur 
+        INNER JOIN pkmn_joueur ON pkmn_joueur.id_joueur = joueur.id_joueur
+        INNER JOIN pkmn ON pkmn_joueur.id_pkmn = pkmn.id_pkmn
+        INNER JOIN apprendre_competence ON apprendre_competence.id_pkmn = pkmn.id_pkmn
+        INNER JOIN competence ON apprendre_competence.id_competence = competence.id_competence
+        WHERE pkmn_joueur.id_pkmn_joueur = :id_pkmnCPU AND competence.niveau_comp <= :level ';
+        $stmt = $mySQLconnection->prepare($sqlQuery);
+        $stmt->bindValue(':id_pkmnCPU',$_SESSION["id_CPU_daemon"]);
+        $stmt->bindValue(':level',$CPUlevel);           
+        $stmt->execute();
+        $stats = $stmt->fetchAll();
+        unset($stmt);
+        return $stats;
+    }
+
     static public function getSkillData()
     {
         $mySQLconnection = Connect::connexion();
