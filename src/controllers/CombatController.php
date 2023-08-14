@@ -181,11 +181,18 @@ class CombatController
    }
 
    $deamon1ability = UserDataRetrievalSession::getPlayerPkmnAbilities($daemonPlayerLevel);
+   $cpuAbilities = UserDataRetrievalSession::getCPUPkmnAbilities($daemonCPULevel);
+
    $skillNames = $deamon1ability;
+   $skillNamesCPU = $cpuAbilities;
 
    //json encodes
    $arrayOfSkills = array_column($deamon1ability, 'nom_compétence');
+   $arrayOfSkillsCPU = array_column($cpuAbilities, 'nom_compétence');
+
    $arrayOfSkillsJson = json_encode($arrayOfSkills);
+   $arrayOfSkillsJsonCPU = json_encode($arrayOfSkillsCPU);
+
    $jsonCurrentCPUHp = json_encode($_SESSION["CPUDaemonCurrentHP"]);
    $jsonCurrentPlayerHp = json_encode($_SESSION["playerDaemonCurrentHP"]);
    $jsonMaxCPUHp = json_encode($_SESSION["CPUDaemonMaxHP"]);
@@ -207,6 +214,8 @@ class CombatController
    {
       ($_SESSION["round"] = "player");
    }
+
+   var_dump($arrayOfSkillsJsonCPU);
 
    require_once ("views/templates/gameCombat.php");
  }
