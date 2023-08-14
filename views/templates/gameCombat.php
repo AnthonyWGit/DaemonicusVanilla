@@ -87,12 +87,13 @@
     const hpFillCPU = document.querySelector("#hp_fill_cpu");
     const hpFillPlayer = document.querySelector("#hp_fill_player");
 
+    //retrieving vars for PHP 
     let currentCPUHP = <?php echo $jsonCurrentCPUHp; ?>;
     let currentPlayerHP = <?php echo $jsonCurrentPlayerHp; ?>;
-
+    let arraySkillsJson = <?php echo $arrayOfSkillsJson; ?>;
+    let arraySkillsJsonCPU = <?php echo $arrayOfSkillsJsonCPU; ?>;
     let maxCPUHP = <?php echo $jsonMaxCPUHp ?>;
     let maxPlayerHP = <?php echo $jsonMaxPlayerHp ?>; 
-
     let aiName = "<?php echo $daemonCPU[0]["nom_pkm"] ?>"
 
     //Checking round so the player has not options when it's AI turn 
@@ -101,6 +102,26 @@
     if (round == "CPU")
     {
         removeActions();
+        // setTimeout(function()
+        //     {
+        //         arraySkillsJsonCPU.forEach
+        // (
+        //     function(skillText) 
+        //         {
+
+        //************* HERE NEED TO BUILD ARRAY WITH CPU SKILLS AND RANDOMIZE TO PICK ONE THEN SEND THE NAME IN URL *** */
+        //             let newParagraph = document.createElement("p");
+        //             actionsElement.appendChild(newParagraph);
+
+        //             let link = document.createElement("a");
+        //             link.textContent = skillText
+        //             link.href = "game.php?combat=skill&" + skillText
+
+        //             newParagraph.appendChild(link)
+        //         }
+        // );
+        //     }
+        // , 3000)
     }
 
     //Setting HP bar CSS style so the bar is empty when CPU HP is 0
@@ -123,7 +144,6 @@
     {
         hpFillPlayer.style.width = ((currentPlayerHP / maxPlayerHP) * 100) + "%";
     }
-    let arraySkillsJson = <?php echo $arrayOfSkillsJson; ?>;
 
     daemonSkills.addEventListener("click", targetElements);
 
