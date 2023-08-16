@@ -4,7 +4,7 @@
         <p id="deamonPlayer"> <?= $daemon[0]["nom_pkm"] ?> Level <?= $daemonPlayerLevel ?></p>
         <p id="deamonPlayerHP"> <?= $_SESSION["playerDaemonCurrentHP"] != "" ? $_SESSION["playerDaemonCurrentHP"]. " HP" : "Dead" ?> </p>
         <div class="hp-bar">
-            <div class="hp-fill" id="hp_fill_player">
+            <div class="hp-fill animate" id="hp_fill_player">
 
             </div>
         </div>
@@ -14,7 +14,7 @@
         <p id="deamonCPU"><?= $daemonCPU[0]["nom_pkm"] ?> Level <?= $daemonCPULevel ?></p>
         <p id="deamonPlayerHP"> <?= $_SESSION["CPUDaemonCurrentHP"] != "" ? $_SESSION["CPUDaemonCurrentHP"]." HP" : "Dead" ?> </p>
         <div class="hp-bar">
-            <div class="hp-fill" id="hp_fill_cpu">
+            <div class="hp-fill animate" id="hp_fill_cpu">
                 
             </div>
         </div>
@@ -129,6 +129,19 @@
         ;
             }
         , 3000)
+    }
+    else if (round == "CPU" & currentCPUHP < 1)
+    {
+        removeActions();
+        msg = "You gain some XP !" + "</br>" + "You get some gold !"
+        let message = document.createElement("p")
+        message.innerHTML = msg
+        actionsElement.appendChild(message)
+        setTimeout(function(ReturnToMenu)
+        {
+            link = "game.php?Hub"
+            window.location.href = link
+        }, 5000)
     }
 
     //Setting HP bar CSS style so the bar is empty when CPU HP is 0
