@@ -113,10 +113,16 @@ html
     border-radius: 5px;
     overflow: hidden;
 }
-  
+
   .hp-fill 
 {
     height: 100%;
     background-color: #55aaff;
-    width: 100%;
+    transition: width 1s ease-in-out;
+    width : 0;
+}
+
+.animate
+{
+    transition: width 1s ease-in-out;
 }
