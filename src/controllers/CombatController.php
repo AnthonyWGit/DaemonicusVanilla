@@ -12,6 +12,17 @@ class CombatController
 {
  public function startCombat()
  {
+
+   if (isset($_SESSION["playerDaemonCurrentHP"]) && isset($_SESSION["CPUDaemonCurrentHP"]))
+   {
+      unset($_SESSION["playerDaemonCurrentHP"]);
+      unset($_SESSION["CPUDaemonCurrentHP"]);
+   }
+   else
+   {
+
+   }
+
    $daemon = UserDataRetrievalSession::getPkmnPlayerOrderOne();
    $daemonCPU = UserDataRetrievalSession::setCPUPkmn();
    
@@ -71,6 +82,7 @@ class CombatController
    //loading abilities
 
    $deamon1ability = UserDataRetrievalSession::getPlayerPkmnAbilities($daemonPlayerLevel);
+   $cpuAbilities = UserDataRetrievalSession::getCPUPkmnAbilities($daemonCPULevel);
    $skillNames = $deamon1ability;
    // var_dump($skillNames);
 
@@ -78,12 +90,12 @@ class CombatController
    $arrayOfSkills = array_column($deamon1ability, 'nom_compétence');
    $arrayOfSkillsJson = json_encode($arrayOfSkills);
 
- 
+   $arrayOfSkillsCPU = array_column($cpuAbilities, 'nom_compétence');
+   $arrayOfSkillsJsonCPU = json_encode($arrayOfSkillsCPU);
 
-   // foreach ($nomCompetences as $nom) 
-   // {
-   //     echo $nom . "<br>";
-   // }
+   $deamonFirstPlayerStats = array_values($statsPlayer[1]);
+   $inArrayStatsCPU = array_values($statsCPU[1]);
+   // var_dump($inArrayStatsCPU[0]["for"]);
 
    //porting some variables to sessions because we will need them to jump through pages like dmg calc
    $_SESSION["playerDaemonMaxHP"] = $daemonPlayerMaxHP;
@@ -93,18 +105,19 @@ class CombatController
    $_SESSION["PlayerStats"] = $statsPlayer;
    $_SESSION["CPUStats"] = $statsCPU;
    $_SESSION["initiative"] = $initiative;
-
-   $deamonFirstPlayerStats = array_values($statsPlayer[1]);
-   $inArrayStatsCPU = array_values($statsCPU[1]);
-   // var_dump($inArrayStatsCPU[0]["for"]);
-
+   
    //json encodes 
+
    //Need json encore so we can use php var in js code
    $jsonCurrentCPUHp = json_encode($_SESSION["CPUDaemonCurrentHP"]);
    $jsonCurrentPlayerHp = json_encode($_SESSION["playerDaemonCurrentHP"]);
    //js will need max hp data to calculate HP graphic bar
    $jsonMaxCPUHp = json_encode($_SESSION["CPUDaemonMaxHP"]);
    $jsonMaxPlayerHp = json_encode($_SESSION["playerDaemonMaxHP"]);
+
+
+
+
    require_once ("views/templates/gameCombat.php");
  }
 
@@ -153,8 +166,10 @@ class CombatController
    {
       $dmg = Math::calcDmg($skillPotency, $deamonFirstPlayerStats, $inArrayStatsCPU, $skillType);
 
-         if ($_SESSION["CPUDaemonCurrentHP"] == "")
+         if ($_SESSION["CPUDaemonCurrentHP"] == "" || $_SESSION["playerDaemonCurrentHP"] == "")
          {
+            unset($_SESSION["CPUDaemonCurrentHP"]);
+            unset($_SESSION["playerDaemonCurrentHP"]);
             header("Location:game.php?Hub");
          }
          else
@@ -214,8 +229,6 @@ class CombatController
    {
       ($_SESSION["round"] = "player");
    }
-
-   var_dump($arrayOfSkillsJsonCPU);
 
    require_once ("views/templates/gameCombat.php");
  }
