@@ -69,11 +69,6 @@
         switchF.remove();
         flee.remove();
         titleMenu.remove();
-
-        let aiAction = document.createElement("p");
-        actionsElement.appendChild(aiAction);
-
-        aiAction.innerHTML = "";
     }
 
     //Query selectorss 
@@ -95,33 +90,45 @@
     let maxCPUHP = <?php echo $jsonMaxCPUHp ?>;
     let maxPlayerHP = <?php echo $jsonMaxPlayerHp ?>; 
     let aiName = "<?php echo $daemonCPU[0]["nom_pkm"] ?>"
+    console.log(currentPlayerHP)
 
     //Checking round so the player has not options when it's AI turn 
     let round = "<?php echo $_SESSION["round"] ?>"
 
-    if (round == "CPU")
+    if (currentPlayerHP == "" || currentPlayerHP < 1)
+    {
+        removeActions()
+    }
+    else if (currentCPUHP == "" || currentCPUHP < 1)
+    {
+        removeActions()
+    }
+
+    if (round == "CPU" & currentCPUHP > 0)
     {
         removeActions();
-        // setTimeout(function()
-        //     {
-        //         arraySkillsJsonCPU.forEach
-        // (
-        //     function(skillText) 
-        //         {
+        setTimeout(function(skillText)
+        {
+            {
+                let randomIndex = Math.floor(Math.random() * arraySkillsJsonCPU.length);
+                let randomAttack = arraySkillsJsonCPU[randomIndex]
+                let newText = "Ennemy daemon used " + randomAttack 
+                let message = document.createElement("p")
+                message.innerHTML = newText
+                actionsElement.appendChild(message)
 
-        //************* HERE NEED TO BUILD ARRAY WITH CPU SKILLS AND RANDOMIZE TO PICK ONE THEN SEND THE NAME IN URL *** */
-        //             let newParagraph = document.createElement("p");
-        //             actionsElement.appendChild(newParagraph);
-
-        //             let link = document.createElement("a");
-        //             link.textContent = skillText
-        //             link.href = "game.php?combat=skill&" + skillText
-
-        //             newParagraph.appendChild(link)
-        //         }
-        // );
-        //     }
-        // , 3000)
+                setTimeout(function(Wait) //wait so the player can see ennemy action 
+                {
+                    {
+                        link = "game.php?combat=skill&" + randomAttack
+                        window.location.href = link
+                    }
+                }
+                , 5000)
+            }
+        ;
+            }
+        , 3000)
     }
 
     //Setting HP bar CSS style so the bar is empty when CPU HP is 0
