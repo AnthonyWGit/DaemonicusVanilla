@@ -84,18 +84,6 @@ class CombatController
    $deamon1ability = UserDataRetrievalSession::getPlayerPkmnAbilities($daemonPlayerLevel);
    $cpuAbilities = UserDataRetrievalSession::getCPUPkmnAbilities($daemonCPULevel);
    $skillNames = $deamon1ability;
-   // var_dump($skillNames);
-
-   //searching ability names 
-   $arrayOfSkills = array_column($deamon1ability, 'nom_compétence');
-   $arrayOfSkillsJson = json_encode($arrayOfSkills);
-
-   $arrayOfSkillsCPU = array_column($cpuAbilities, 'nom_compétence');
-   $arrayOfSkillsJsonCPU = json_encode($arrayOfSkillsCPU);
-
-   $deamonFirstPlayerStats = array_values($statsPlayer[1]);
-   $inArrayStatsCPU = array_values($statsCPU[1]);
-   // var_dump($inArrayStatsCPU[0]["for"]);
 
    //porting some variables to sessions because we will need them to jump through pages like dmg calc
    $_SESSION["playerDaemonMaxHP"] = $daemonPlayerMaxHP;
@@ -105,17 +93,23 @@ class CombatController
    $_SESSION["PlayerStats"] = $statsPlayer;
    $_SESSION["CPUStats"] = $statsCPU;
    $_SESSION["initiative"] = $initiative;
-   
-   //json encodes 
 
+   //json encodes 
+   //searching ability names 
+   $arrayOfSkills = array_column($deamon1ability, 'nom_compétence');
+   $arrayOfSkillsJson = json_encode($arrayOfSkills);
+
+   $arrayOfSkillsCPU = array_column($cpuAbilities, 'nom_compétence');
+   $arrayOfSkillsJsonCPU = json_encode($arrayOfSkillsCPU);
+
+   $deamonFirstPlayerStats = array_values($statsPlayer[1]);
+   $inArrayStatsCPU = array_values($statsCPU[1]);
    //Need json encore so we can use php var in js code
    $jsonCurrentCPUHp = json_encode($_SESSION["CPUDaemonCurrentHP"]);
    $jsonCurrentPlayerHp = json_encode($_SESSION["playerDaemonCurrentHP"]);
    //js will need max hp data to calculate HP graphic bar
    $jsonMaxCPUHp = json_encode($_SESSION["CPUDaemonMaxHP"]);
    $jsonMaxPlayerHp = json_encode($_SESSION["playerDaemonMaxHP"]);
-
-
 
 
    require_once ("views/templates/gameCombat.php");
