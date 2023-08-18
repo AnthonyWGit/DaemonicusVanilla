@@ -36,13 +36,28 @@
 
 <script>
 
+    function toggle()
+    {
+        let classe = document.querySelectorAll(".classe")
+        let link = document.querySelector(".link")
+        let backDelete = document.querySelector(".forDeletion")
+        classe.forEach(element => {element.remove()})
+        link.remove()
+        daemonSkills.classList.toggle("hidden");
+        item.classList.toggle("hidden");
+        switchF.classList.toggle("hidden");
+        flee.classList.toggle("hidden");
+        titleMenu.classList.toggle("hidden");
+        backDelete.remove()
+
+    }   
     function targetElements() 
     {
-        daemonSkills.remove();
-        item.remove();
-        switchF.remove();
-        flee.remove();
-        titleMenu.remove();
+        daemonSkills.classList.toggle("hidden");
+        item.classList.toggle("hidden");
+        switchF.classList.toggle("hidden");
+        flee.classList.toggle("hidden");
+        titleMenu.classList.toggle("hidden");
         
         // Iterate through the arraySkillsJson and create paragraphs
         arraySkillsJson.forEach
@@ -51,24 +66,32 @@
                 {
                     let newParagraph = document.createElement("p");
                     actionsElement.appendChild(newParagraph);
+                    newParagraph.classList.add("classe")
 
                     let link = document.createElement("a");
                     link.textContent = skillText
                     link.href = "game.php?combat=skill&" + skillText
 
                     newParagraph.appendChild(link)
+                    link.classList.add("link")
                 }
         );
+
+        let backButton = document.createElement("p")
+        actionsElement.appendChild(backButton)
+        backButton.innerHTML = "Back"
+        backButton.classList.add("forDeletion")
+        backButton.addEventListener("click", toggle)
         
     }
 
     function removeActions() //during ai turn : remove player actions and display ai skill 
     {
-        daemonSkills.remove();
-        item.remove();
-        switchF.remove();
-        flee.remove();
-        titleMenu.remove();
+        daemonSkills.remove()
+        item.remove()
+        switchF.remove()
+        flee.remove()
+        titleMenu.remove()
     }
 
     //Query selectorss 
