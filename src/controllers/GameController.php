@@ -5,6 +5,7 @@ use Models\Connect;
 use Models\UserDataRetrievalSession;
 use Models\GetFirstDemon;
 use Models\GameStageModel;
+use Models\Math;
 
 class GameController
 {
@@ -33,6 +34,16 @@ class GameController
         else if ($arrayProg[0]["id_stade_jeu"] > 1 )
         {
             $daemons = $dataretrievaal->getPkmnPlayer();
+            $getStatsPlayer = UserDataRetrievalSession::getPlayerDaemonStats();
+            $statsPlayer = Math::calcStatsPlayer();
+            // var_dump($statsPlayer);
+            // var_dump($getStatsPlayer);
+            foreach($getStatsPlayer as $truc)
+            {
+                $_SESSION["id_pkmn_joueurUP".$truc["id_pkmn_joueur"]] = $truc["id_pkmn_joueur"];
+                json_encode($truc["capital_pts"]);
+                var_dump($daemons);
+            }
             require_once("views/templates/gameHub.php");
         }
         else

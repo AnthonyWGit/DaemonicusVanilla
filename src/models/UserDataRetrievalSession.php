@@ -239,4 +239,18 @@ class UserDataRetrievalSession
         unset($stmt);
         return $skillData;
     }
+
+    static public function addFor()
+    {
+        $mySQLconnection = Connect::connexion();
+        $sqlQuery = 'UPDATE pkmn_joueur
+                    SET force_pts = force_pts + 1
+                    WHERE id_pkmn_joueur = :id';
+        $stmt = $mySQLconnection->prepare($sqlQuery);
+        $stmt->bindValue(':id', $_SESSION["id_pkmn_joueurUP"]);
+        $stmt->execute();
+        $skillData= $stmt->fetchAll();
+        unset($stmt);
+        return $skillData;
+    }
 }
