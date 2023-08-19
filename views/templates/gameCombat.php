@@ -113,8 +113,10 @@
     let maxCPUHP = <?php echo $jsonMaxCPUHp ?>;
     let maxPlayerHP = <?php echo $jsonMaxPlayerHp ?>; 
     let aiName = "<?php echo $daemonCPU[0]["nom_pkm"] ?>"
+    let CPUPreviousCurrentHp = <?php echo $daemonCPUPreviousCurrentHP ?>;
+    let playerPreviousCurrentHp = <?php echo $daemonPlayerPreviousCurrentHP ?>;
     console.log(currentPlayerHP)
-
+    console.log(CPUPreviousCurrentHp)
     //Checking round so the player has not options when it's AI turn 
     let round = "<?php echo $_SESSION["round"] ?>"
 
@@ -147,11 +149,11 @@
                         window.location.href = link
                     }
                 }
-                , 5000)
+                , 2000)
             }
         ;
             }
-        , 3000)
+        , 2000)
     }
     else if (round == "CPU" & currentCPUHP < 1)
     {
@@ -169,24 +171,35 @@
 
     //Setting HP bar CSS style so the bar is empty when CPU HP is 0
     console.log(currentCPUHP)
-    if (currentCPUHP <0 ) 
-    {
-        hpFillCPU.style.width = 0
-    }
-    else
-    {
-        hpFillCPU.style.width = ((currentCPUHP / maxCPUHP ) * 100) + "%";
-    }
 
+    hpFillCPU.style.width = (( CPUPreviousCurrentHp / maxCPUHP ) * 100) + "%";
+    hpFillPlayer.style.width = (( playerPreviousCurrentHp / maxCPUHP ) * 100) + "%";
+
+    setTimeout(function(animationCPU)
+    {
+        if (currentCPUHP < 1 ) 
+        {
+            hpFillCPU.style.width = 0
+        }
+        else
+        {
+            hpFillCPU.style.width = ((currentCPUHP / maxCPUHP ) * 100) + "%";
+        }
+    }, 800)
+
+    
     //Setting HP bar CSS style so the bar is not full when player damage taken 
-    if (currentPlayerHP < 0 ) 
+    setTimeout(function(animationPlaayer)
     {
-        hpFillPlayer.style.width = 0;
-    }
-    else
-    {
-        hpFillPlayer.style.width = ((currentPlayerHP / maxPlayerHP) * 100) + "%";
-    }
+        if (currentPlayerHP < 1 ) 
+        {
+            hpFillPlayer.style.width = 0;
+        }
+        else
+        {
+            hpFillPlayer.style.width = ((currentPlayerHP / maxPlayerHP) * 100) + "%";
+        }
+    },800)
 
     daemonSkills.addEventListener("click", targetElements);
 

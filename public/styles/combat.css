@@ -118,14 +118,10 @@ html
 {
     height: 100%;
     background-color: #55aaff;
-    transition: width 1s ease-in-out;
-    width : 100%;
+    transition: width 1s ease-out;
 }
 
-.animate
-{
-    transition: width 1s ease-in-out;
-}
+
 
 .hidden
 {

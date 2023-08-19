@@ -93,6 +93,8 @@ class CombatController
    $_SESSION["PlayerStats"] = $statsPlayer;
    $_SESSION["CPUStats"] = $statsCPU;
    $_SESSION["initiative"] = $initiative;
+   $daemonCPUPreviousCurrentHP = $_SESSION["CPUDaemonCurrentHP"];
+   $daemonPlayerPreviousCurrentHP = $_SESSION["playerDaemonCurrentHP"];
 
    //json encodes 
    //searching ability names 
@@ -139,6 +141,10 @@ class CombatController
 
    $daemonCPUCurrentHP = $_SESSION["CPUDaemonCurrentHP"];
    $daemonPlayerCurrentHP = $_SESSION["playerDaemonCurrentHP"];
+
+   //These are basically HP of previous turn that will be usefull for animations 
+   $daemonCPUPreviousCurrentHP = $_SESSION["CPUDaemonCurrentHP"];
+   $daemonPlayerPreviousCurrentHP = $_SESSION["playerDaemonCurrentHP"];
 
    $deamonFirstPlayerStats = array_values($statsPlayer[1]); //Searching stats for the daemon dealing dmg wich is always first 
    $inArrayStatsCPU = array_values($statsCPU[1]);
@@ -206,6 +212,9 @@ class CombatController
    $jsonCurrentPlayerHp = json_encode($_SESSION["playerDaemonCurrentHP"]);
    $jsonMaxCPUHp = json_encode($_SESSION["CPUDaemonMaxHP"]);
    $jsonMaxPlayerHp = json_encode($_SESSION["playerDaemonMaxHP"]);
+
+   $jsonPreviousCurrentCPUHp = json_encode($daemonCPUPreviousCurrentHP);
+   $jsonPreviousCurrentPlayerHp = json_encode($daemonPlayerPreviousCurrentHP);
 
    //If CPU is dead
    if ($_SESSION["CPUDaemonCurrentHP"] < 1)
