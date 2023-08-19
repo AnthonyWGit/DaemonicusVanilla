@@ -158,8 +158,6 @@ class CombatController
    // Get the key "Imp" from the inner array
    $keyImp = array_keys($innerArray)[0];
    
-   echo $keyImp; // Output: Imp
-
    $daemonCPU[0]["nom_pkm"] = $keyImp;
 
    if ($_SESSION["round"] == "player")
@@ -175,8 +173,6 @@ class CombatController
          else
          {
             $_SESSION["CPUDaemonCurrentHP"] = $daemonCPUCurrentHP - $dmg;
-            // var_dump($dmg);
-            // var_dump($_SESSION["CPUDaemonCurrentHP"]);
          }
    }
    else
@@ -190,8 +186,6 @@ class CombatController
       else
       {
          $_SESSION["playerDaemonCurrentHP"] = $daemonPlayerCurrentHP - $dmg;
-         // var_dump($dmg);
-         // var_dump($_SESSION["CPUDaemonCurrentHP"]);
       }
    }
 

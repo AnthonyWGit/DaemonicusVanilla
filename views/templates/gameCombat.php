@@ -110,11 +110,11 @@
     let currentPlayerHP = <?php echo $jsonCurrentPlayerHp; ?>;
     let arraySkillsJson = <?php echo $arrayOfSkillsJson; ?>;
     let arraySkillsJsonCPU = <?php echo $arrayOfSkillsJsonCPU; ?>;
-    let maxCPUHP = <?php echo $jsonMaxCPUHp ?>;
-    let maxPlayerHP = <?php echo $jsonMaxPlayerHp ?>; 
-    let aiName = "<?php echo $daemonCPU[0]["nom_pkm"] ?>"
-    let CPUPreviousCurrentHp = <?php echo $daemonCPUPreviousCurrentHP ?>;
-    let playerPreviousCurrentHp = <?php echo $daemonPlayerPreviousCurrentHP ?>;
+    let maxCPUHP = <?php echo $jsonMaxCPUHp; ?>;
+    let maxPlayerHP = <?php echo $jsonMaxPlayerHp; ?>; 
+    let aiName = "<?php echo $daemonCPU[0]["nom_pkm"]; ?>"
+    let CPUPreviousCurrentHp = <?php echo $daemonCPUPreviousCurrentHP ;?>;
+    let playerPreviousCurrentHp = <?php echo $daemonPlayerPreviousCurrentHP ;?>;
     console.log(currentPlayerHP)
     console.log(CPUPreviousCurrentHp)
     //Checking round so the player has not options when it's AI turn 
@@ -171,9 +171,19 @@
 
     //Setting HP bar CSS style so the bar is empty when CPU HP is 0
     console.log(currentCPUHP)
+    console.log(round)
 
-    hpFillCPU.style.width = (( CPUPreviousCurrentHp / maxCPUHP ) * 100) + "%";
-    hpFillPlayer.style.width = (( playerPreviousCurrentHp / maxCPUHP ) * 100) + "%";
+    if (round == "CPU")
+    {
+        hpFillCPU.style.width = ((CPUPreviousCurrentHp / maxCPUHP ) * 100) + "%";
+        hpFillPlayer.style.width = (( currentPlayerHP / maxPlayerHP ) * 100) + "%";
+    }
+    else if (round == "player")
+    {
+        hpFillCPU.style.width = (( currentCPUHP / maxCPUHP ) * 100) + "%";
+        hpFillPlayer.style.width = (( playerPreviousCurrentHp / maxPlayerHP ) * 100) + "%";
+    }
+
 
     setTimeout(function(animationCPU)
     {

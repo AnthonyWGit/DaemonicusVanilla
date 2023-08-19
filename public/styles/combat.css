@@ -121,7 +121,10 @@ html
     transition: width 1s ease-out;
 }
 
-
+.animate
+{
+    transition: width 1s ease-out;
+}
 
 .hidden
 {
