@@ -22,6 +22,13 @@ if ($_SESSION["session"]) //Session must be set to play the game ; if not redire
                 case "process":
                     $gameController->beginnngGame();
                     break;
+                case "lvlup":
+                    $currentURL = $_SERVER['REQUEST_URI'];
+                    $skillParts = explode('/', $currentURL); // Split the string at the '&' symbol
+                    $statAndId = explode('_',$skillParts[3]);
+                    $_SESSION["lvlUPStat"] = $statAndId[0];
+                    $_SESSION["lvlUPId"] = $statAndId[1];
+                    break;
             }
     }
     else if (isset($_GET['choice'])) 
@@ -57,7 +64,7 @@ if ($_SESSION["session"]) //Session must be set to play the game ; if not redire
     }
     else if (isset($_GET['Hub']))
     {
-        $gameController->displayHub();
+        $gameController->beginnngGame();
     }
     else
     {

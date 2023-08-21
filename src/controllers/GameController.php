@@ -36,19 +36,29 @@ class GameController
             $daemons = $dataretrievaal->getPkmnPlayer();
             $getStatsPlayer = UserDataRetrievalSession::getPlayerDaemonStats();
             $statsPlayer = Math::calcStatsPlayer();
+            $_SESSION["id_pkmn_joueur"] = [];
             // var_dump($statsPlayer);
             // var_dump($getStatsPlayer);
-            foreach($getStatsPlayer as $truc)
+            foreach($getStatsPlayer as $tric=>$truc)
             {
-                $_SESSION["id_pkmn_joueurUP".$truc["id_pkmn_joueur"]] = $truc["id_pkmn_joueur"];
+                array_push($_SESSION["id_pkmn_joueur"],$truc["id_pkmn_joueur"]);
                 json_encode($truc["capital_pts"]);
-                var_dump($daemons);
+                
+                $newValue = $truc["id_pkmn_joueur"];
+                $targetKey = "id_pkmn_joueur";
+
+                foreach ($statsPlayer as &$nestedArray) 
+                {
+                    $nestedArray[key($nestedArray)][$targetKey] = $newValue;
+                }
+                var_dump($_SESSION);     
+
             }
             require_once("views/templates/gameHub.php");
         }
         else
         {
-            echo"Loggin to play the game";
+            echo"Loggin to play the game";  
         }
     }
 
