@@ -38,6 +38,8 @@
     ?>
 <?php
 } ?>
+
+<div class="PtsAvaliable"></div>
 <script>
 
 let capitalPts = <?php echo $playerData["capital_pts"]; ?>;
@@ -50,6 +52,10 @@ if (capitalPts != 0)
 {
     let buttonContain = document.querySelectorAll(".listy")
     count = 0
+    let div = document.querySelector(".PtsAvaliable")
+    let createParagraphLvlUp = document.createElement("p")
+    createParagraphLvlUp.textContent = "Level up points avaliable : " + capitalPts
+    div.appendChild(createParagraphLvlUp)
     buttonContain.forEach(function(number)
     {
         switch (count)
@@ -73,7 +79,6 @@ if (capitalPts != 0)
             stat = "def"
             break;
         }
-
         let statButton = document.createElement("button")
         let link = document.createElement("a")
         link.href = "game.php?action=lvlup&stat/" + stat + "_" + idCatch
