@@ -40,7 +40,7 @@
 } ?>
 <script>
 
-let capitalPts = <?php echo $truc["capital_pts"]; ?>;
+let capitalPts = <?php echo $playerData["capital_pts"]; ?>;
 console.log(capitalPts)
 let stat = ""
 let id = document.querySelector(".listy")

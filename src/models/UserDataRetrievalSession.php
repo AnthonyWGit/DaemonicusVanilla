@@ -240,17 +240,78 @@ class UserDataRetrievalSession
         return $skillData;
     }
 
-    static public function addFor()
+    static public function addStat()
     {
-        $mySQLconnection = Connect::connexion();
-        $sqlQuery = 'UPDATE pkmn_joueur
-                    SET force_pts = force_pts + 1
-                    WHERE id_pkmn_joueur = :id';
-        $stmt = $mySQLconnection->prepare($sqlQuery);
-        $stmt->bindValue(':id', $_SESSION["id_pkmn_joueurUP"]);
-        $stmt->execute();
-        $skillData= $stmt->fetchAll();
-        unset($stmt);
-        return $skillData;
+        if (in_array($_SESSION["lvlUPId"],$_SESSION["id_pkmn_joueur"])) //Anti cheat check 
+        {
+            switch ($_SESSION["lvlUPStat"])
+            {
+                case "for":
+                    $mySQLconnection = Connect::connexion();
+                    $sqlQuery = 'UPDATE pkmn_joueur
+                                SET force_pts = force_pts + 1, capital_pts = capital_pts - 1
+                                WHERE id_pkmn_joueur = :id';
+                    $stmt = $mySQLconnection->prepare($sqlQuery);
+                    $stmt->bindValue(':id', $_SESSION["lvlUPId"]);
+                    $stmt->execute();
+                    unset($stmt);
+                    break;
+                case "end":
+                    $mySQLconnection = Connect::connexion();
+                    $sqlQuery = 'UPDATE pkmn_joueur
+                                SET end_pts = end_pts + 1, capital_pts = capital_pts - 1
+                                WHERE id_pkmn_joueur = :id';
+                    $stmt = $mySQLconnection->prepare($sqlQuery);
+                    $stmt->bindValue(':id', $_SESSION["lvlUPId"]);
+                    $stmt->execute();
+                    unset($stmt);
+                    break;
+                case "agi":
+                    $mySQLconnection = Connect::connexion();
+                    $sqlQuery = 'UPDATE pkmn_joueur
+                                SET agi_pts = agi_pts + 1, capital_pts = capital_pts - 1
+                                WHERE id_pkmn_joueur = :id';
+                    $stmt = $mySQLconnection->prepare($sqlQuery);
+                    $stmt->bindValue(':id', $_SESSION["lvlUPId"]);
+                    $stmt->execute();
+                    unset($stmt);
+                    break;
+                case "int":
+                    $mySQLconnection = Connect::connexion();
+                    $sqlQuery = 'UPDATE pkmn_joueur
+                                SET int_pts = int_pts + 1, capital_pts = capital_pts - 1
+                                WHERE id_pkmn_joueur = :id';
+                    $stmt = $mySQLconnection->prepare($sqlQuery);
+                    $stmt->bindValue(':id', $_SESSION["lvlUPId"]);
+                    $stmt->execute();
+                    unset($stmt);
+                    break;
+                case "luck":
+                    $mySQLconnection = Connect::connexion();
+                    $sqlQuery = 'UPDATE pkmn_joueur
+                                SET luck_pts = luck_pts + 1, capital_pts = capital_pts - 1
+                                WHERE id_pkmn_joueur = :id';
+                    $stmt = $mySQLconnection->prepare($sqlQuery);
+                    $stmt->bindValue(':id', $_SESSION["lvlUPId"]);
+                    $stmt->execute();
+                    unset($stmt);
+                    break;
+                case "def":
+                    $mySQLconnection = Connect::connexion();
+                    $sqlQuery = 'UPDATE pkmn_joueur
+                                SET def_pts = def_pts + 1, capital_pts = capital_pts - 1
+                                WHERE id_pkmn_joueur = :id';
+                    $stmt = $mySQLconnection->prepare($sqlQuery);
+                    $stmt->bindValue(':id', $_SESSION["lvlUPId"]);
+                    $stmt->execute();
+                    unset($stmt);
+                    break;
+            }
+        }
+        else
+        {
+            echo "cheating";
+        }
+
     }
 }

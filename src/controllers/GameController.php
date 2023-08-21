@@ -36,18 +36,18 @@ class GameController
             $daemons = $dataretrievaal->getPkmnPlayer();
             $getStatsPlayer = UserDataRetrievalSession::getPlayerDaemonStats();
             $statsPlayer = Math::calcStatsPlayer();
-            $_SESSION["id_pkmn_joueur"] = [];
+            $_SESSION["id_pkmn_joueur"] = []; //Setting anti cheat check
             // var_dump($statsPlayer);
             // var_dump($getStatsPlayer);
-            foreach($getStatsPlayer as $tric=>$truc)
+            foreach($getStatsPlayer as $key=>$playerData)
             {
-                array_push($_SESSION["id_pkmn_joueur"],$truc["id_pkmn_joueur"]);
-                json_encode($truc["capital_pts"]);
+                array_push($_SESSION["id_pkmn_joueur"],$playerData["id_pkmn_joueur"]);
+                json_encode($playerData["capital_pts"]);
                 
                 $newValue = $truc["id_pkmn_joueur"];
                 $targetKey = "id_pkmn_joueur";
 
-                foreach ($statsPlayer as &$nestedArray) 
+                foreach ($statsPlayer as &$nestedArray)  //pushing corresponding id of the pkmn into his stats 
                 {
                     $nestedArray[key($nestedArray)][$targetKey] = $newValue;
                 }
@@ -95,5 +95,11 @@ class GameController
     {
         $daemons =  UserDataRetrievalSession::getPkmnPlayer();
         require_once("views/templates/gameHub.php");
+    }
+
+    public function statUP()
+    {
+        UserDataRetrievalSession::addStat();
+        header("location:game.php?Hub");
     }
 }

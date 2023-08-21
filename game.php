@@ -28,6 +28,7 @@ if ($_SESSION["session"]) //Session must be set to play the game ; if not redire
                     $statAndId = explode('_',$skillParts[3]);
                     $_SESSION["lvlUPStat"] = $statAndId[0];
                     $_SESSION["lvlUPId"] = $statAndId[1];
+                    $gameController->statUP();
                     break;
             }
     }
