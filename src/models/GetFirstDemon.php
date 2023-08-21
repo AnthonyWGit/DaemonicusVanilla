@@ -13,7 +13,7 @@ class GetFirstDemon
         //------------------------SQL request-----------------------------------
         $mySQLconnection = Connect::connexion();
         $sqlQuery = 'INSERT INTO pkmn_joueur (id_caractere, id_pkmn, id_joueur, experience, capital_pts) 
-                    VALUES (:id_caractere, :id_pkmn, :id_joueur, :experience)';
+                    VALUES (:id_caractere, :id_pkmn, :id_joueur, :experience, :capital_pts)';
         $stmt = $mySQLconnection->prepare($sqlQuery);                  
         $array = [
                     'id_caractere' => $random,

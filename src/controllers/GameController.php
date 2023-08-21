@@ -44,7 +44,7 @@ class GameController
                 array_push($_SESSION["id_pkmn_joueur"],$playerData["id_pkmn_joueur"]);
                 json_encode($playerData["capital_pts"]);
                 
-                $newValue = $truc["id_pkmn_joueur"];
+                $newValue = $playerData["id_pkmn_joueur"];
                 $targetKey = "id_pkmn_joueur";
 
                 foreach ($statsPlayer as &$nestedArray)  //pushing corresponding id of the pkmn into his stats 
