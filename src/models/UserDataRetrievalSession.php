@@ -314,4 +314,30 @@ class UserDataRetrievalSession
         }
 
     }
+
+    public static function lvlUP($xpEarned, $pkmnToLvl)
+    {
+        $mySQLconnection = Connect::connexion();
+        $sqlQuery = 'UPDATE pkmn_joueur
+                    SET experience = experience + :experience
+                    WHERE id_pkmn_joueur = :id';
+        $stmt = $mySQLconnection->prepare($sqlQuery);
+        $stmt->bindValue(':experience', $xpEarned);
+        $stmt->bindValue(':id', $pkmnToLvl);
+        $stmt->execute();
+        unset($stmt);
+    }
+
+    public static function capitalPtsUP($pkmnToLvl)
+    {
+        $mySQLconnection = Connect::connexion();
+        $sqlQuery = 'UPDATE pkmn_joueur
+                    SET capital_pts = capital_pts + 1
+                    WHERE id_pkmn_joueur = :id';
+        $stmt = $mySQLconnection->prepare($sqlQuery);
+        $stmt->bindValue(':id', $pkmnToLvl);
+        $stmt->execute();
+        unset($stmt);
+    }    
 }
+
