@@ -199,10 +199,11 @@ class UserDataRetrievalSession
         INNER JOIN pkmn ON pkmn_joueur.id_pkmn = pkmn.id_pkmn
         INNER JOIN apprendre_competence ON apprendre_competence.id_pkmn = pkmn.id_pkmn
         INNER JOIN competence ON apprendre_competence.id_competence = competence.id_competence
-        WHERE joueur.id_joueur= :id_joueur AND competence.niveau_comp <= :level '; 
+        WHERE pkmn_joueur.id_pkmn_joueur = :id_pkmn_joueur AND joueur.id_joueur = :id_joueur AND competence.niveau_comp <= :level '; 
         $stmt = $mySQLconnection->prepare($sqlQuery);
         $stmt->bindValue(':id_joueur',$_SESSION['userID']);
-        $stmt->bindValue(':level',$level);           
+        $stmt->bindValue(':id_pkmn_joueur',$_SESSION['id_pkmn_joueur']);
+        $stmt->bindValue(':level',$level);    
         $stmt->execute();
         $stats = $stmt->fetchAll();
         unset($stmt);
@@ -242,7 +243,7 @@ class UserDataRetrievalSession
 
     static public function addStat()
     {
-        if (in_array($_SESSION["lvlUPId"],$_SESSION["id_pkmn_joueur"])) //Anti cheat check 
+        if (in_array($_SESSION["lvlUPId"],$_SESSION["id_pkmn_joueurX"])) //Anti cheat check 
         {
             switch ($_SESSION["lvlUPStat"])
             {
