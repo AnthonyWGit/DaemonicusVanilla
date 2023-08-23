@@ -47,19 +47,17 @@ class Math
         return $baseLevel;
 }
 
-    public static function calcMaxHPPlayer()
+    public static function calcMaxHPPlayer($endPKMN)
     {
-        $endPKMN = UserDataRetrievalSession::getPkmnPlayerOrderOne();
-        $endPKMN = $endPKMN[0]["end_pkmn"];
+        $endPKMNe = UserDataRetrievalSession::getPkmnPlayerOrderOne();
         $daemonHP = 50 + (5 * $endPKMN);
         return $daemonHP;
     }
 
-    public static function calcMaxHPCPU()
+    public static function calcMaxHPCPU($endPKMNCpu)
     {
         $endPKMN = UserDataRetrievalSession::getPkmnPlayerOrderOne();
-        $endPKMN = $endPKMN[0]["end_pkmn"];
-        $daemonHP = 50 + (5 * $endPKMN);
+        $daemonHP = 50 + (5 * $endPKMNCpu);
         return $daemonHP;
     }    
 

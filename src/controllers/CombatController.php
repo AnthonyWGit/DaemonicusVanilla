@@ -34,12 +34,28 @@ class CombatController
    $xpDaemonPlayer = $daemon[0]["experience"];
    $xpDaemonCPU = $getStatsCPU[0]["experience"];
 
-   $daemonCPUMaxHP = 50;
-   $daemonPlayerMaxHP = Math::calcMaxHPPlayer();
-
    $daemonPlayerLevel = Math::calculateLevel($xpDaemonPlayer);
    $daemonCPULevel = Math::calculateLevel($xpDaemonCPU);
-
+   $statsPlayer = Math::calcStatsPlayer();
+   $statsCPU = Math::calcStatsCPU();
+   $endPKMN = [];
+   $endPKMNCpu = [];
+   foreach($statsPlayer as $statDaemon)
+   {
+      foreach($statDaemon as $stats)
+      {
+         array_push($endPKMN, $stats["end"]);
+      }
+   }
+   foreach($statsCPU as $statDaemonCpu)
+   {
+      foreach($statDaemonCpu as $statsCpu)
+      {
+         array_push($endPKMNCpu, $statsCpu["end"]);
+      }
+   }
+   $daemonCPUMaxHP = Math::CalcMaxHPCPU($endPKMNCpu[0]);
+   $daemonPlayerMaxHP = Math::calcMaxHPPlayer($endPKMN[0]);   
    $daemonPlayerCurrentHP = $daemonPlayerMaxHP;
    $daemonCPUCurrentHP = $daemonCPUMaxHP;
 
@@ -48,8 +64,7 @@ class CombatController
    $playerOrderOne = UserDataRetrievalSession::getOrderOnePlayer();
    $_SESSION["id_pkmn_joueur"] = $playerOrderOne[0]["id_pkmn_joueur"];
 
-   $statsPlayer = Math::calcStatsPlayer();
-   $statsCPU = Math::calcStatsCPU();
+
 
    $firstDaemonAgiPlayer = array_values($statsPlayer[1]);
    $firstDaemonAgiPlayer = $firstDaemonAgiPlayer[0]["agi"];
