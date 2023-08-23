@@ -46,6 +46,7 @@ class CombatController
    UserDataRetrievalSession::startNewCombat($daemonPlayerMaxHP, $daemonCPUMaxHP);
 
    $playerOrderOne = UserDataRetrievalSession::getOrderOnePlayer();
+   $_SESSION["id_pkmn_joueur"] = $playerOrderOne[0]["id_pkmn_joueur"];
 
    $statsPlayer = Math::calcStatsPlayer();
    $statsCPU = Math::calcStatsCPU();
