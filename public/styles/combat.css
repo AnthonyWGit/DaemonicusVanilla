@@ -130,3 +130,9 @@ html
 {
     display : none;
 }
+
+.stats
+{
+    display: flex;
+    flex-direction: row;
+}
