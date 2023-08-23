@@ -93,6 +93,7 @@ class CombatController
    $_SESSION["PlayerStats"] = $statsPlayer;
    $_SESSION["CPUStats"] = $statsCPU;
    $_SESSION["initiative"] = $initiative;
+   $_SESSION["xpEarned"] = 500;
    $daemonCPUPreviousCurrentHP = $_SESSION["CPUDaemonCurrentHP"];
    $daemonPlayerPreviousCurrentHP = $_SESSION["playerDaemonCurrentHP"];
 
@@ -213,6 +214,20 @@ class CombatController
    //If CPU is dead
    if ($_SESSION["CPUDaemonCurrentHP"] < 1)
    {
+      //Grabbing pkmn lvl in order 1 before level up 
+      $daemon = UserDataRetrievalSession::getPkmnPlayerOrderOne();
+      $xpDaemonPlayer = $daemon[0]["experience"];
+      $daemonPlayerLevelBefore = Math::calculateLevel($xpDaemonPlayer);
+      //Adding xp
+      UserDataRetrievalSession::lvlUP($_SESSION["xpEarned"], $daemon[0]["id_pkmn_joueur"]);
+      //Recalculating level
+      $daemon = UserDataRetrievalSession::getPkmnPlayerOrderOne();
+      $xpDaemonPlayer = $daemon[0]["experience"];
+      $daemonPlayerLevel = Math::calculateLevel($xpDaemonPlayer);
+      if ($daemonPlayerLevel != $daemonPlayerLevelBefore)
+      {
+         UserDataRetrievalSession::capitalPtsUP($daemon[0]["id_pkmn_joueur"]);
+      }
       $_SESSION["CPUDaemonCurrentHP"] = "";
    }
 

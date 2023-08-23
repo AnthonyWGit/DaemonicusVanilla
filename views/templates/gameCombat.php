@@ -95,7 +95,7 @@
     }
 
     //Query selectorss 
-    let actionsElement = document.querySelector(".actionsElement");
+    const actionsElement = document.querySelector(".actionsElement");
     const daemonSkills = document.querySelector("#daemon_skill");
     const item = document.querySelector("#item");
     const switchF = document.querySelector("#switch");
@@ -115,6 +115,7 @@
     let aiName = "<?php echo $daemonCPU[0]["nom_pkm"]; ?>"
     let CPUPreviousCurrentHp = <?php echo $daemonCPUPreviousCurrentHP ;?>;
     let playerPreviousCurrentHp = <?php echo $daemonPlayerPreviousCurrentHP ;?>;
+    let xpEarned = <?php echo $_SESSION["xpEarned"]; ?>;
     console.log(currentPlayerHP)
     console.log(CPUPreviousCurrentHp)
     //Checking round so the player has not options when it's AI turn 
@@ -158,7 +159,7 @@
     else if (round == "CPU" & currentCPUHP < 1)
     {
         removeActions();
-        msg = "You gain some XP !" + "</br>" + "You get some gold !"
+        msg = "You gain some XP ! (" + xpEarned + ")" + "</br>" + "You get some gold !"
         let message = document.createElement("p")
         message.innerHTML = msg
         actionsElement.appendChild(message)
