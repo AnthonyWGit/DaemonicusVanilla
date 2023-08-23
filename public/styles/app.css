@@ -89,3 +89,18 @@ html
 .popup button {
     margin-top: 10px;
 }
+
+.stats
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 3em;
+}
+
+.colButton
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}

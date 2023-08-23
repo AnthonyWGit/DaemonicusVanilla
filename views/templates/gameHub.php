@@ -17,14 +17,17 @@
 
 <?php } ?>
 
-<div class="stats"> 
-    <p>Stats</p>
+</ul>
+
+<p>Stats</p>
+    <div class="stats">
     <?php
     foreach ($updatedStatsPlayer as $key => $nestedArray) 
     {
         $pokemonName = key($nestedArray); // Get the Pokémon's name
         $pokemonStats = $nestedArray[$pokemonName]; // Get the Pokémon's stats
         ?>
+        <div class="colButton">    
         <div class="PtsAvaliable"></div>        
         <ul>
             <li><?= $pokemonName ?></li>
@@ -35,19 +38,23 @@
             <li class="listy<?= $pokemonStats["id_pkmn_joueur"]?>" id="<?= $pokemonStats["id_pkmn_joueur"] ?>">Luck: <?= $pokemonStats["luck"] ?></li>
             <li class="listy<?= $pokemonStats["id_pkmn_joueur"]?>" id="<?= $pokemonStats["id_pkmn_joueur"] ?>">Def: <?= $pokemonStats["def"] ?></li>
         </ul>
+        
+            <button id="openPopup<?= $pokemonStats["id_pkmn_joueur"]?>">Open </button>
+
+        <div id="popupOverlay<?= $pokemonStats["id_pkmn_joueur"]?>" class="overlay">
+            <div id="popup<?= $pokemonStats["id_pkmn_joueur"]?>" class="popup">
+                <button id="closePopup<?= $pokemonStats["id_pkmn_joueur"]?>">Close</button>
+                <p>Pop-up content goes here. <?= $pokemonName ?></p>
+            </div>
+        </div>
+        </div>
+
+
         <?php
     }
     ?>
-</div>
-
-
-<button id="openPopup">Open </button>
-    <div id="popupOverlay" class="overlay">
-        <div id="popup" class="popup">
-            <button id="closePopup">Close</button>
-            <p>Pop-up content goes here.</p>
         </div>
-    </div>
+
 
 <script>
 
@@ -106,23 +113,33 @@ for (const key in capitalPts)
     }    
 }
 
-const openPopupButton = document.getElementById('openPopup');
-const closePopupButton = document.getElementById('closePopup');
-const popupOverlay = document.getElementById('popupOverlay');
+for (const key in names)
+{    
+    popu = "popupOverlay" + key
+    popuA = "closePopup" + key
+    popuC = "#openPopup" + key
 
-openPopupButton.addEventListener('click', () => {
-    popupOverlay.style.display = 'block';
-});
+    const openPopupButton = document.querySelector(popuC);
+    const closePopupButton = document.getElementById(popuA);
+    const popupOverlay = document.getElementById(popu);
+    console.log(popu)
+    console.log(popupOverlay)
 
-closePopupButton.addEventListener('click', () => {
-    popupOverlay.style.display = 'none';
-});
+    openPopupButton.addEventListener('click', () => {
+        popupOverlay.style.display = 'block';
+    });
 
-popupOverlay.addEventListener('click', (event) => {
-    if (event.target === popupOverlay) {
+    closePopupButton.addEventListener('click', () => {
         popupOverlay.style.display = 'none';
-    }
-});
+    });
+
+    popupOverlay.addEventListener('click', (event) => {
+        if (event.target === popupOverlay) {
+            popupOverlay.style.display = 'none';
+        }
+    });
+
+}
 
 </script>
 <?php $content = ob_get_clean() ?>
